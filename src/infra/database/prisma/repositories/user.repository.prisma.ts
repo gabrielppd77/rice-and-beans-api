@@ -17,9 +17,4 @@ export class UserRepositoryPrisma implements UserRepository {
     if (!userFinded) return null;
     return userFinded;
   }
-  async create(user: User): Promise<void> {
-    await this.prismaService.user.create({
-      data: user,
-    });
-  }
 }
