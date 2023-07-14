@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 
-import { UserRepository } from '@app/repositories/user.repository';
+import { UserRepository } from '@domain/repositories/user.repository';
 
 import { EmailOrPasswordIncorrectException } from './exceptions/email-or-password-incorrect.exception';
 

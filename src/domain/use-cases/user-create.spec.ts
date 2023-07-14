@@ -1,4 +1,4 @@
-import { User } from '@app/entities/user';
+import { User } from '@domain/entities/user';
 import { InMemoryUserRepository } from '@test/repositories/in-memory-user.repository';
 
 import { UserCreate } from './user-create';

@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 
 import { Public } from '@infra/http/decorators/public.decorator';
 
-import { WelcomeCreate } from '@app/use-cases/welcome-create';
+import { WelcomeCreate } from '@domain/use-cases/welcome-create';
 
 import { WelcomeCreateDTO } from '../dtos/welcome-create.dto';
 

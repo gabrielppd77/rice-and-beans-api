@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 
 import { Public } from '@infra/http/decorators/public.decorator';
 
-import { UserLogin } from '@app/use-cases/user-login';
+import { UserLogin } from '@domain/use-cases/user-login';
 
 import { UserLoginDTO } from '../dtos/user-login.dto';
 

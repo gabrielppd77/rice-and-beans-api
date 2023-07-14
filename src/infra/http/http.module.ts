@@ -6,7 +6,7 @@ import { AuthModule } from '@infra/auth/auth.module';
 import { UserController } from './controllers/user.controller';
 import { WelcomeController } from './controllers/welcome.cotroller';
 
-import { UserLogin } from '@app/use-cases/user-login';
+import { UserLogin } from '@domain/use-cases/user-login';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
