@@ -1,6 +1,6 @@
 import { Entity } from '@core/entities/entity';
 
-interface UserProps {
+export interface UserProps {
   email: string;
   name: string;
   password: string;
@@ -9,15 +9,15 @@ interface UserProps {
 
 export class User extends Entity<UserProps> {
   get email() {
-    return this.email;
+    return this.props.email;
   }
   get name() {
-    return this.name;
+    return this.props.name;
   }
   get password() {
-    return this.password;
+    return this.props.password;
   }
   get phone() {
-    return this.phone;
+    return this.props.phone;
   }
 }

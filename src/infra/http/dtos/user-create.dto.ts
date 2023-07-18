@@ -7,7 +7,7 @@ import {
   IsOptional,
 } from 'class-validator';
 
-class UserCreateDTO {
+class UserToCreateDTO {
   @MaxLength(55)
   @IsEmail()
   email: string;
@@ -30,10 +30,10 @@ class CompanyCreateDTO {
   description: string;
 }
 
-export class WelcomeCreateDTO {
+export class UserCreateDTO {
   @ValidateNested()
-  @Type(() => UserCreateDTO)
-  user: UserCreateDTO;
+  @Type(() => UserToCreateDTO)
+  user: UserToCreateDTO;
   @ValidateNested()
   @Type(() => CompanyCreateDTO)
   company: CompanyCreateDTO;

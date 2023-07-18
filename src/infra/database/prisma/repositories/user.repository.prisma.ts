@@ -6,6 +6,9 @@ import { UserRepository } from '@domain/repositories/user.repository';
 import { User } from '@domain/entities/user';
 import { Company } from '@domain/entities/company';
 
+import { PrismaUserMapper } from '../mappers/prisma-user.mapper';
+import { PrismaCompanyMapper } from '../mappers/prisma-company.mapper';
+
 @Injectable()
 export class UserRepositoryPrisma implements UserRepository {
   constructor(private prismaService: PrismaService) {}
@@ -17,24 +20,20 @@ export class UserRepositoryPrisma implements UserRepository {
       },
     });
     if (!userFinded) return null;
-    return userFinded;
+    return PrismaUserMapper.toDomain(userFinded);
   }
 
   async create(user: User, company: Company): Promise<void> {
+    const userPrisma = PrismaUserMapper.toPrisma(user);
+    const companyPrisma = PrismaCompanyMapper.toPrisma(company);
+
+    delete companyPrisma.userId;
+
     await this.prismaService.user.create({
       data: {
-        // id: user.id.toValue(),
-        // email: user.email,
-        // name: user.name,
-        // password: user.password,
-        // phone: user.phone,
-        // company: {
-        //   create: {
-        //     id: company.id.toValue(),
-        //     name: company.name,
-        //     description: company.description,
-        //     phone: company.phone,
-        //   },
+        ...userPrisma,
+        company: {
+          create: companyPrisma,
         },
       },
     });

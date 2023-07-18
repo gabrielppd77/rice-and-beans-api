@@ -26,7 +26,7 @@ model Company {
   id String @id
 
   name        String
-  phone       String?
+  phone       String? @db.VarChar(11)
   description String?
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

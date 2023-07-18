@@ -52,6 +52,7 @@ export class UserCreate {
       name: newCompany.name,
       description: newCompany.description,
       phone: newCompany.phone,
+      userId: user.id.toValue(),
     });
 
     await this.userRepository.create(user, company);

@@ -4,13 +4,13 @@ import { DatabaseModule } from '@infra/database/database.module';
 import { AuthModule } from '@infra/auth/auth.module';
 
 import { UserController } from './controllers/user.controller';
-import { WelcomeController } from './controllers/welcome.cotroller';
 
 import { UserLogin } from '@domain/use-cases/user-login';
+import { UserCreate } from '@domain/use-cases/user-create';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
-  controllers: [UserController, WelcomeController],
-  providers: [UserLogin],
+  controllers: [UserController],
+  providers: [UserLogin, UserCreate],
 })
 export class HttpModule {}
