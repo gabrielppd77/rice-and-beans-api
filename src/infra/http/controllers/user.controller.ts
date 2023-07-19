@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 
 import { Public } from '@infra/http/decorators/public.decorator';
 
@@ -22,14 +22,11 @@ export class UserController {
       password,
     });
 
-    return {
-      statusCode: 201,
-      message: 'Usuário logado com sucesso.',
-      data: { access_token },
-    };
+    return { access_token };
   }
 
   @Public()
+  @HttpCode(201)
   @Post('create')
   async create(@Body() body: UserCreateDTO) {
     const { user, company } = body;
@@ -38,11 +35,5 @@ export class UserController {
       newUser: user,
       newCompany: company,
     });
-
-    return {
-      statusCode: 201,
-      message: 'Usuário e Empresa criados com sucesso.',
-      data: null,
-    };
   }
 }
