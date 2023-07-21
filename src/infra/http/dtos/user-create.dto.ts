@@ -24,10 +24,10 @@ class CompanyCreateDTO {
   name: string;
   @Length(10, 11)
   @IsOptional()
-  phone: string;
+  phone?: string;
   @MaxLength(255)
   @IsOptional()
-  description: string;
+  description?: string;
 }
 
 export class UserCreateDTO {
