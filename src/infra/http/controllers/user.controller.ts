@@ -7,6 +7,7 @@ import { UserLogin } from '@domain/use-cases/user-login';
 import { UserCreate } from '@domain/use-cases/user-create';
 
 import { UserLoginDTO } from '../dtos/user-login.dto';
+import { UserLoginResponseDTO } from '../dtos/user-login-response.dto';
 import { UserCreateDTO } from '../dtos/user-create.dto';
 
 @ApiTags('user')
@@ -16,7 +17,7 @@ export class UserController {
 
   @Public()
   @Post('login')
-  async login(@Body() body: UserLoginDTO): Promise<{ access_token: string }> {
+  async login(@Body() body: UserLoginDTO): Promise<UserLoginResponseDTO> {
     const { email, password } = body;
 
     const { access_token } = await this.userLogin.execute({
