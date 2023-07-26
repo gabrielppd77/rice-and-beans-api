@@ -1,6 +1,7 @@
+import { Injectable } from '@nestjs/common';
+
 import { Category } from '@domain/entities/category';
 import { CategoryRepository } from '@domain/repositories/category.repository';
-import { Injectable } from '@nestjs/common';
 
 interface Request {
   name: string;

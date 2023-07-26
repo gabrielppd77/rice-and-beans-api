@@ -8,6 +8,9 @@ import { UserRepositoryPrisma } from './prisma/repositories/user.repository.pris
 import { CategoryRepository } from '@domain/repositories/category.repository';
 import { CategoryRepositoryPrisma } from './prisma/repositories/category.repository.prisma';
 
+import { ProductRepository } from '@domain/repositories/product.repository';
+import { ProductRepositoryPrisma } from './prisma/repositories/product.repository.prisma';
+
 @Module({
   providers: [
     PrismaService,
@@ -19,7 +22,11 @@ import { CategoryRepositoryPrisma } from './prisma/repositories/category.reposit
       provide: CategoryRepository,
       useClass: CategoryRepositoryPrisma,
     },
+    {
+      provide: ProductRepository,
+      useClass: ProductRepositoryPrisma,
+    },
   ],
-  exports: [UserRepository, CategoryRepository],
+  exports: [UserRepository, CategoryRepository, ProductRepository],
 })
 export class DatabaseModule {}
