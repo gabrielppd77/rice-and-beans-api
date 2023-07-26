@@ -34,3 +34,14 @@ model Company {
 
   @@map("companies")
 }
+
+model Category {
+  id String @id
+
+  name             String
+  photoUrl         String?
+  categoryParentId String?
+
+  categoryParent Category?  @relation("CategoryParents", fields: [categoryParentId], references: [id], onDelete: Cascade)
+  categories     Category[] @relation("CategoryParents")
+}
