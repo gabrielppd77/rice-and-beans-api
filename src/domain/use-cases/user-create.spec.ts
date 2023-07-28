@@ -5,6 +5,8 @@ import { EmailInUseException } from './exceptions/email-in-use.exception';
 
 import { makeUser } from '@test/factories/make-user';
 import { makeCompany } from '@test/factories/make-company';
+import { UserProps } from '@domain/entities/user';
+import { CompanyProps } from '@domain/entities/company';
 
 describe('UserCreate', () => {
   it('should show error when found email that has been registred', async () => {
@@ -36,13 +38,13 @@ describe('UserCreate', () => {
     const userRepository = new InMemoryUserRepository();
     const userCreate = new UserCreate(userRepository);
 
-    const userToCreate = {
+    const userToCreate: UserProps = {
       email: 'emailUser@email.com',
       name: 'Jon Doe',
       password: '1234',
       phone: 'phoneUser',
     };
-    const companyToCreate = {
+    const companyToCreate: Omit<CompanyProps, 'userId'> = {
       name: 'nameCompany',
       description: 'descriptionCompany',
       phone: 'phoneCompany',

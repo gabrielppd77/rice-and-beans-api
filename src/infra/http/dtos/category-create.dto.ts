@@ -7,6 +7,5 @@ export class CategoryToCreateDTO {
   @IsOptional()
   photoUrl?: string;
   @IsUUID()
-  @IsOptional()
-  categoryParentId?: string;
+  companyId: string;
 }

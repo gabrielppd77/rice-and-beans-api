@@ -4,9 +4,9 @@ import { Category } from '@domain/entities/category';
 import { CategoryRepository } from '@domain/repositories/category.repository';
 
 interface Request {
+  companyId: string;
   name: string;
   photoUrl?: string;
-  categoryParentId?: string;
 }
 
 type Response = void;
@@ -16,8 +16,8 @@ export class CategoryCreate {
   constructor(private categoryRepository: CategoryRepository) {}
 
   async execute(req: Request): Promise<Response> {
-    const { name, photoUrl, categoryParentId } = req;
-    const category = new Category({ name, photoUrl, categoryParentId });
+    const { companyId, name, photoUrl } = req;
+    const category = new Category({ companyId, name, photoUrl });
     await this.categoryRepository.create(category);
   }
 }

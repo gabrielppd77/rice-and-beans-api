@@ -23,43 +23,42 @@ model User {
 }
 
 model Company {
-  id String @id
+  id     String @id
+  userId String @unique
 
   name        String  @db.VarChar(55)
   phone       String? @db.VarChar(11)
   description String? @db.VarChar(255)
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @unique
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categories Category[]
 
   @@map("companies")
 }
 
 model Category {
-  id String @id
+  id        String @id
+  companyId String
 
-  name             String  @db.VarChar(55)
-  photoUrl         String? @db.VarChar(55)
-  categoryParentId String?
+  name     String  @db.VarChar(55)
+  photoUrl String? @db.VarChar(55)
 
-  categoryParent Category?  @relation("CategoryParents", fields: [categoryParentId], references: [id], onDelete: Cascade)
-  categories     Category[] @relation("CategoryParents")
-
+  company  Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
   products Product[]
 
   @@map("categories")
 }
 
 model Product {
-  id String @id
+  id         String @id
+  categoryId String
 
-  categoryId  String
   name        String  @db.VarChar(55)
   price       Decimal
   photoUrl    String? @db.VarChar(55)
   description String? @db.VarChar(255)
 
-  category Category @relation(fields: [categoryId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@map("products")
 }

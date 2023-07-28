@@ -12,11 +12,11 @@ export class CategoryController {
   @HttpCode(201)
   @Post('create')
   async create(@Body() body: CategoryToCreateDTO): Promise<void> {
-    const { name, categoryParentId, photoUrl } = body;
+    const { name, companyId, photoUrl } = body;
 
     await this.categoryCreate.execute({
       name,
-      categoryParentId,
+      companyId,
       photoUrl,
     });
   }

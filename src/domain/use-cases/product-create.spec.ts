@@ -1,12 +1,13 @@
 import { InMemoryProductRepository } from '@test/repositories/in-memory-product.repository';
 import { ProductCreate } from './product-create';
+import { ProductProps } from '@domain/entities/product';
 
 describe('ProductCreate', () => {
   it('should be create an product correctly', async () => {
     const productRepository = new InMemoryProductRepository();
     const productCreate = new ProductCreate(productRepository);
 
-    const productToCreate = {
+    const productToCreate: ProductProps = {
       categoryId: '123456789',
       description: 'description product',
       name: 'Pizza Calabresa',

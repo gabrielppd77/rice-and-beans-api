@@ -6,7 +6,7 @@ export class PrismaCategoryMapper {
     return {
       id: category.id.toValue(),
       name: category.name,
-      categoryParentId: category.categoryParentId,
+      companyId: category.companyId,
       photoUrl: category.photoUrl,
     };
   }
@@ -15,7 +15,7 @@ export class PrismaCategoryMapper {
     return new Category(
       {
         name: category.name,
-        categoryParentId: category.categoryParentId,
+        companyId: category.companyId,
         photoUrl: category.photoUrl,
       },
       category.id,
