@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { UniqueEntityID } from '@core/entities/unique-entity-id';
 
 import { Product } from '@domain/entities/product';
 import { ProductRepository } from '@domain/repositories/product.repository';
@@ -20,7 +21,7 @@ export class ProductCreate {
   async execute(req: Request): Promise<Response> {
     const { categoryId, name, price, photoUrl, description } = req;
     const product = new Product({
-      categoryId,
+      categoryId: new UniqueEntityID(categoryId),
       name,
       price,
       photoUrl,

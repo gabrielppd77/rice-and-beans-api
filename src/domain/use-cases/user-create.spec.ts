@@ -3,18 +3,26 @@ import { InMemoryUserRepository } from '@test/repositories/in-memory-user.reposi
 import { UserCreate } from './user-create';
 import { EmailInUseException } from './exceptions/email-in-use.exception';
 
-import { makeUser } from '@test/factories/make-user';
-import { makeCompany } from '@test/factories/make-company';
-import { UserProps } from '@domain/entities/user';
-import { CompanyProps } from '@domain/entities/company';
+import { User } from '@domain/entities/user';
+import { Company } from '@domain/entities/company';
 
 describe('UserCreate', () => {
   it('should show error when found email that has been registred', async () => {
     const userRepository = new InMemoryUserRepository();
     const userCreate = new UserCreate(userRepository);
 
-    const user = makeUser();
-    const company = makeCompany();
+    const user = new User({
+      email: 'email@gmail.com',
+      name: 'Jon Doe',
+      password: '1234',
+      phone: '32944445555',
+    });
+    const company = new Company({
+      name: 'Company name',
+      userId: user.id,
+      description: 'Description Company',
+      phone: '32522223333',
+    });
 
     userRepository.create(user, company);
 
@@ -38,13 +46,13 @@ describe('UserCreate', () => {
     const userRepository = new InMemoryUserRepository();
     const userCreate = new UserCreate(userRepository);
 
-    const userToCreate: UserProps = {
+    const userToCreate = {
       email: 'emailUser@email.com',
       name: 'Jon Doe',
       password: '1234',
       phone: 'phoneUser',
     };
-    const companyToCreate: Omit<CompanyProps, 'userId'> = {
+    const companyToCreate = {
       name: 'nameCompany',
       description: 'descriptionCompany',
       phone: 'phoneCompany',

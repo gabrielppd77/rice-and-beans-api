@@ -12,6 +12,11 @@ export class InMemoryUserRepository extends UserRepository {
   }
   async findByEmail(email: string): Promise<User | null> {
     const userFinded = this.users.find((user) => user.email === email);
-    return userFinded || null;
+    if (!userFinded) return null;
+    const companyFinded = this.companies.find(
+      (company) => company.userId.toValue() === userFinded.id.toValue(),
+    );
+    if (companyFinded) userFinded.company = companyFinded;
+    return userFinded;
   }
 }

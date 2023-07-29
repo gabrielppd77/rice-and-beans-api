@@ -1,7 +1,8 @@
 import { Entity } from '@core/entities/entity';
+import { UniqueEntityID } from '@core/entities/unique-entity-id';
 
 export interface CategoryProps {
-  companyId: string;
+  companyId: UniqueEntityID;
   name: string;
   photoUrl?: string;
 }

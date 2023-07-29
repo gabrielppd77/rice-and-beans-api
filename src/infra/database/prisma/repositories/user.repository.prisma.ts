@@ -18,6 +18,9 @@ export class UserRepositoryPrisma implements UserRepository {
       where: {
         email,
       },
+      include: {
+        company: true,
+      },
     });
     if (!userFinded) return null;
     return PrismaUserMapper.toDomain(userFinded);

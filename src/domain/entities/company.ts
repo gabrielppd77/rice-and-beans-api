@@ -1,7 +1,8 @@
 import { Entity } from '@core/entities/entity';
+import { UniqueEntityID } from '@core/entities/unique-entity-id';
 
 export interface CompanyProps {
-  userId: string;
+  userId: UniqueEntityID;
   name: string;
   phone?: string;
   description?: string;

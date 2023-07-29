@@ -33,7 +33,10 @@ export class UserLogin {
 
     if (!isPasswordValid) throw new EmailOrPasswordIncorrectException();
 
-    const payload = { sub: userFinded.id };
+    const payload: Payload = {
+      userId: userFinded.id.toValue(),
+      companyId: userFinded.company.id.toValue(),
+    };
 
     const access_token = this.jwtService.sign(payload);
 

@@ -6,18 +6,16 @@ import { UserLogin } from './user-login';
 import { UserCreate } from './user-create';
 
 import { EmailOrPasswordIncorrectException } from './exceptions/email-or-password-incorrect.exception';
-import { UserProps } from '@domain/entities/user';
-import { CompanyProps } from '@domain/entities/company';
 
 const JWT_SECRET = 'JWT_SECRET_FOR_TEST';
 
-const userToCreate: UserProps = {
+const userToCreate = {
   email: 'emailUser@email.com',
   name: 'Jon Doe',
   password: '1234',
   phone: 'phoneUser',
 };
-const companyToCreate: Omit<CompanyProps, 'userId'> = {
+const companyToCreate = {
   name: 'nameCompany',
   description: 'descriptionCompany',
   phone: 'phoneCompany',
