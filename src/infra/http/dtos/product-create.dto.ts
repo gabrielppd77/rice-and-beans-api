@@ -14,7 +14,7 @@ export class ProductToCreateDTO {
   })
   price: number;
   @IsOptional()
-  @MaxLength(55)
+  @MaxLength(1000)
   photoUrl?: string;
   @IsOptional()
   @MaxLength(255)

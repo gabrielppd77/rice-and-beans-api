@@ -41,7 +41,7 @@ model Category {
   companyId String
 
   name     String  @db.VarChar(55)
-  photoUrl String? @db.VarChar(55)
+  photoUrl String? @db.VarChar(1000)
 
   company  Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
   products Product[]
@@ -55,7 +55,7 @@ model Product {
 
   name        String  @db.VarChar(55)
   price       Decimal
-  photoUrl    String? @db.VarChar(55)
+  photoUrl    String? @db.VarChar(1000)
   description String? @db.VarChar(255)
 
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
