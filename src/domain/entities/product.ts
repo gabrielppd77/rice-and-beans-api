@@ -1,5 +1,6 @@
 import { Entity } from '@core/entities/entity';
 import { UniqueEntityID } from '@core/entities/unique-entity-id';
+import { Category } from './category';
 
 export interface ProductProps {
   categoryId: UniqueEntityID;
@@ -7,22 +8,27 @@ export interface ProductProps {
   price: number;
   photoUrl?: string;
   description?: string;
+
+  category?: Category;
 }
 
 export class Product extends Entity<ProductProps> {
-  public get categoryId() {
+  get categoryId() {
     return this.props.categoryId;
   }
-  public get name() {
+  get name() {
     return this.props.name;
   }
-  public get price() {
+  get price() {
     return this.props.price;
   }
-  public get photoUrl() {
+  get photoUrl() {
     return this.props.photoUrl;
   }
-  public get description() {
+  get description() {
     return this.props.description;
+  }
+  get category() {
+    return this.props.category;
   }
 }

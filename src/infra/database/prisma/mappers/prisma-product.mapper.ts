@@ -1,6 +1,16 @@
-import { Prisma, Product as ProductPrisma } from '@prisma/client';
+import {
+  Prisma,
+  Product as ProductPrisma,
+  Category as CategoryPrisma,
+} from '@prisma/client';
 import { Product } from '@domain/entities/product';
 import { UniqueEntityID } from '@core/entities/unique-entity-id';
+
+import { PrismaCategoryMapper } from './prisma-category.mapper';
+
+interface ProductPrismaIncluded extends ProductPrisma {
+  category?: CategoryPrisma;
+}
 
 export class PrismaProductMapper {
   static toPrisma(product: Product): ProductPrisma {
@@ -14,7 +24,7 @@ export class PrismaProductMapper {
     };
   }
 
-  static toDomain(product: ProductPrisma): Product {
+  static toDomain(product: ProductPrismaIncluded): Product {
     return new Product(
       {
         categoryId: new UniqueEntityID(product.categoryId),
@@ -22,6 +32,9 @@ export class PrismaProductMapper {
         price: product.price.toNumber(),
         photoUrl: product.photoUrl,
         description: product.description,
+        category: product.category
+          ? PrismaCategoryMapper.toDomain(product.category)
+          : undefined,
       },
       product.id,
     );
