@@ -11,10 +11,17 @@ import { UserLogin } from '@domain/use-cases/user-login';
 import { UserCreate } from '@domain/use-cases/user-create';
 import { CategoryCreate } from '@domain/use-cases/category-create';
 import { ProductCreate } from '@domain/use-cases/product-create';
+import { ListCategoriesAndProducts } from '@domain/use-cases/list-categories-and-products';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
   controllers: [UserController, CategoryController, ProductController],
-  providers: [UserLogin, UserCreate, CategoryCreate, ProductCreate],
+  providers: [
+    UserLogin,
+    UserCreate,
+    CategoryCreate,
+    ProductCreate,
+    ListCategoriesAndProducts,
+  ],
 })
 export class HttpModule {}

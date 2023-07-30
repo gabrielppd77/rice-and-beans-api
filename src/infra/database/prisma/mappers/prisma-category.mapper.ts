@@ -31,7 +31,7 @@ export class PrismaCategoryMapper {
         companyId: new UniqueEntityID(category.companyId),
         photoUrl: category.photoUrl,
         products:
-          category.products.length > 0
+          category.products?.length > 0
             ? category.products.map((d) => PrismaProductMapper.toDomain(d))
             : undefined,
         company: category.company

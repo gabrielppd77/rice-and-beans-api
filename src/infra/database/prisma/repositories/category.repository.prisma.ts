@@ -17,4 +17,15 @@ export class CategoryRepositoryPrisma implements CategoryRepository {
       data: categoryPrisma,
     });
   }
+
+  async listAllWithProducts(companyId: string): Promise<Category[]> {
+    const categoriesPrisma = await this.prismaService.category.findMany({
+      where: { companyId },
+      include: { products: true },
+    });
+    const categoriesDomain = categoriesPrisma.map((d) =>
+      PrismaCategoryMapper.toDomain(d),
+    );
+    return categoriesDomain;
+  }
 }

@@ -32,7 +32,7 @@ export class PrismaCompanyMapper {
         phone: company.phone,
         description: company.description,
         categories:
-          company.categories.length > 0
+          company.categories?.length > 0
             ? company.categories.map((d) => PrismaCategoryMapper.toDomain(d))
             : undefined,
 
