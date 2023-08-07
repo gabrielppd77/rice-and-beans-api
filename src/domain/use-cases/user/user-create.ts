@@ -3,10 +3,10 @@ import { hash } from 'bcrypt';
 
 import { UserRepository } from '@domain/repositories/user.repository';
 
-import { User } from '../entities/user';
-import { Company } from '../entities/company';
+import { User } from '../../entities/user';
+import { Company } from '../../entities/company';
 
-import { EmailInUseException } from './exceptions/email-in-use.exception';
+import { EmailInUseException } from '../../exceptions/email-in-use.exception';
 
 interface UserRequest {
   email: string;

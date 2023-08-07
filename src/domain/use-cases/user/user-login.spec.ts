@@ -5,7 +5,7 @@ import { InMemoryUserRepository } from '@test/repositories/in-memory-user.reposi
 import { UserLogin } from './user-login';
 import { UserCreate } from './user-create';
 
-import { EmailOrPasswordIncorrectException } from './exceptions/email-or-password-incorrect.exception';
+import { EmailOrPasswordIncorrectException } from '../../exceptions/email-or-password-incorrect.exception';
 
 const JWT_SECRET = 'JWT_SECRET_FOR_TEST';
 

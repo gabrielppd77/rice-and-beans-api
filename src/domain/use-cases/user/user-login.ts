@@ -4,7 +4,7 @@ import { compare } from 'bcrypt';
 
 import { UserRepository } from '@domain/repositories/user.repository';
 
-import { EmailOrPasswordIncorrectException } from './exceptions/email-or-password-incorrect.exception';
+import { EmailOrPasswordIncorrectException } from '../../exceptions/email-or-password-incorrect.exception';
 
 interface Request {
   email: string;

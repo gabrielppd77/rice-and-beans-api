@@ -1,7 +1,7 @@
 import { InMemoryUserRepository } from '@test/repositories/in-memory-user.repository';
 
 import { UserCreate } from './user-create';
-import { EmailInUseException } from './exceptions/email-in-use.exception';
+import { EmailInUseException } from '../../exceptions/email-in-use.exception';
 
 import { User } from '@domain/entities/user';
 import { Company } from '@domain/entities/company';

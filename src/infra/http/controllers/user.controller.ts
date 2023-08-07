@@ -3,8 +3,8 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { Public } from '@infra/http/decorators/public.decorator';
 
-import { UserLogin } from '@domain/use-cases/user-login';
-import { UserCreate } from '@domain/use-cases/user-create';
+import { UserLogin } from '@domain/use-cases/user/user-login';
+import { UserCreate } from '@domain/use-cases/user/user-create';
 
 import { UserLoginDTO } from '../dtos/user-login.dto';
 import { UserLoginResponseDTO } from '../dtos/user-login-response.dto';
