@@ -24,11 +24,11 @@ const companyToCreate = {
 describe('UserLogin', () => {
   it('should be able to show an error when pass the incorrect email', async () => {
     const userRepository = new InMemoryUserRepository();
-    const userCreate = new UserCreate(userRepository);
     const jwtService = new JwtService({
       secret: JWT_SECRET,
     });
     const userLogin = new UserLogin(userRepository, jwtService);
+    const userCreate = new UserCreate(userRepository, userLogin);
 
     await userCreate.execute({
       newUser: userToCreate,
@@ -46,11 +46,11 @@ describe('UserLogin', () => {
 
   it('should be able to show an error when pass the incorrect password', async () => {
     const userRepository = new InMemoryUserRepository();
-    const userCreate = new UserCreate(userRepository);
     const jwtService = new JwtService({
       secret: JWT_SECRET,
     });
     const userLogin = new UserLogin(userRepository, jwtService);
+    const userCreate = new UserCreate(userRepository, userLogin);
 
     await userCreate.execute({
       newUser: userToCreate,
@@ -68,11 +68,11 @@ describe('UserLogin', () => {
 
   it('should be able to log-in an user', async () => {
     const userRepository = new InMemoryUserRepository();
-    const userCreate = new UserCreate(userRepository);
     const jwtService = new JwtService({
       secret: JWT_SECRET,
     });
     const userLogin = new UserLogin(userRepository, jwtService);
+    const userCreate = new UserCreate(userRepository, userLogin);
 
     await userCreate.execute({
       newUser: userToCreate,

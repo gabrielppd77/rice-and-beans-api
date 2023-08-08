@@ -1,15 +1,24 @@
 import { InMemoryUserRepository } from '@test/repositories/in-memory-user.repository';
 
 import { UserCreate } from './user-create';
+import { UserLogin } from './user-login';
+import { JwtService } from '@nestjs/jwt';
+
 import { EmailInUseException } from '../../exceptions/email-in-use.exception';
 
 import { User } from '@domain/entities/user';
 import { Company } from '@domain/entities/company';
 
+const JWT_SECRET = 'JWT_SECRET_FOR_TEST';
+
 describe('UserCreate', () => {
   it('should show error when found email that has been registred', async () => {
     const userRepository = new InMemoryUserRepository();
-    const userCreate = new UserCreate(userRepository);
+    const jwtService = new JwtService({
+      secret: JWT_SECRET,
+    });
+    const userLogin = new UserLogin(userRepository, jwtService);
+    const userCreate = new UserCreate(userRepository, userLogin);
 
     const user = new User({
       email: 'email@gmail.com',
@@ -44,7 +53,11 @@ describe('UserCreate', () => {
 
   it('should be able to create an user and your company', async () => {
     const userRepository = new InMemoryUserRepository();
-    const userCreate = new UserCreate(userRepository);
+    const jwtService = new JwtService({
+      secret: JWT_SECRET,
+    });
+    const userLogin = new UserLogin(userRepository, jwtService);
+    const userCreate = new UserCreate(userRepository, userLogin);
 
     const userToCreate = {
       email: 'emailUser@email.com',
@@ -78,5 +91,33 @@ describe('UserCreate', () => {
     expect(companyCreatedInDB.name).toEqual(companyToCreate.name);
     expect(companyCreatedInDB.description).toEqual(companyToCreate.description);
     expect(companyCreatedInDB.phone).toEqual(companyToCreate.phone);
+  });
+
+  it('should be able to generate access_token', async () => {
+    const userRepository = new InMemoryUserRepository();
+    const jwtService = new JwtService({
+      secret: JWT_SECRET,
+    });
+    const userLogin = new UserLogin(userRepository, jwtService);
+    const userCreate = new UserCreate(userRepository, userLogin);
+
+    const userToCreate = {
+      email: 'emailUser@email.com',
+      name: 'Jon Doe',
+      password: '1234',
+      phone: 'phoneUser',
+    };
+    const companyToCreate = {
+      name: 'nameCompany',
+      description: 'descriptionCompany',
+      phone: 'phoneCompany',
+    };
+
+    const { access_token } = await userCreate.execute({
+      newCompany: companyToCreate,
+      newUser: userToCreate,
+    });
+
+    expect(access_token).toBeTruthy();
   });
 });

@@ -31,12 +31,14 @@ export class UserController {
   @Public()
   @HttpCode(201)
   @Post('create')
-  async create(@Body() body: UserCreateDTO): Promise<void> {
+  async create(@Body() body: UserCreateDTO): Promise<UserLoginResponseDTO> {
     const { user, company } = body;
 
-    await this.userCreate.execute({
+    const { access_token } = await this.userCreate.execute({
       newUser: user,
       newCompany: company,
     });
+
+    return { access_token };
   }
 }

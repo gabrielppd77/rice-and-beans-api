@@ -7,6 +7,7 @@ import { User } from '../../entities/user';
 import { Company } from '../../entities/company';
 
 import { EmailInUseException } from '../../exceptions/email-in-use.exception';
+import { UserLogin } from './user-login';
 
 interface UserRequest {
   email: string;
@@ -26,11 +27,16 @@ interface Request {
   newCompany: CompanyRequest;
 }
 
-type Response = void;
+interface Response {
+  access_token: string;
+}
 
 @Injectable()
 export class UserCreate {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private userLogin: UserLogin,
+  ) {}
 
   async execute(request: Request): Promise<Response> {
     const { newUser, newCompany } = request;
@@ -56,5 +62,12 @@ export class UserCreate {
     });
 
     await this.userRepository.create(user, company);
+
+    const { access_token } = await this.userLogin.execute({
+      email: newUser.email,
+      password: newUser.password,
+    });
+
+    return { access_token };
   }
 }
