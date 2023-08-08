@@ -5,8 +5,31 @@ import { CategoryRepository } from '@domain/repositories/category.repository';
 export class InMemoryCategoryRepository extends CategoryRepository {
   public categories: Category[] = [];
   public products: Product[] = [];
+
   async create(category: Category): Promise<void> {
     this.categories.push(category);
+  }
+
+  async update(category: Category): Promise<void> {
+    this.categories = this.categories.map((d) => {
+      if (d.id.toValue() === category.id.toValue()) {
+        return category;
+      }
+    });
+  }
+
+  async delete(categoryId: string): Promise<void> {
+    this.categories = this.categories.filter(
+      (d) => d.id.toValue() !== categoryId,
+    );
+  }
+
+  async getById(categoryId: string): Promise<Category> {
+    return this.categories.find((d) => d.id.toValue() === categoryId);
+  }
+
+  async listAll(): Promise<Category[]> {
+    return this.categories;
   }
 
   async listAllWithProducts(companyId: string): Promise<Category[]> {
