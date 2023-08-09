@@ -3,6 +3,10 @@ import { Injectable } from '@nestjs/common';
 import { CategoryRepository } from '@domain/repositories/category.repository';
 import { Category } from '@domain/entities/category';
 
+interface Request {
+  companyId: string;
+}
+
 interface Response {
   categories: Category[];
 }
@@ -11,8 +15,9 @@ interface Response {
 export class CategoryList {
   constructor(private categoryRepository: CategoryRepository) {}
 
-  async execute(): Promise<Response> {
-    const categories = await this.categoryRepository.listAll();
+  async execute(req: Request): Promise<Response> {
+    const { companyId } = req;
+    const categories = await this.categoryRepository.listAll(companyId);
     return {
       categories,
     };

@@ -8,6 +8,6 @@ export abstract class CategoryRepository {
   abstract update(category: Category): Promise<void>;
   abstract delete(categoryId: string): Promise<void>;
   abstract getById(categoryId: string): Promise<Category>;
-  abstract listAll(): Promise<Category[]>;
+  abstract listAll(companyId: string): Promise<Category[]>;
   abstract listAllWithProducts(companyId: string): Promise<Category[]>;
 }

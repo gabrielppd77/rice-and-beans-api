@@ -28,8 +28,8 @@ export class InMemoryCategoryRepository extends CategoryRepository {
     return this.categories.find((d) => d.id.toValue() === categoryId);
   }
 
-  async listAll(): Promise<Category[]> {
-    return this.categories;
+  async listAll(companyId): Promise<Category[]> {
+    return this.categories.filter((d) => d.companyId.toValue() === companyId);
   }
 
   async listAllWithProducts(companyId: string): Promise<Category[]> {
