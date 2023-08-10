@@ -10,9 +10,9 @@ export class InMemoryCategoryRepository extends CategoryRepository {
     this.categories.push(category);
   }
 
-  async update(category: Category): Promise<void> {
+  async update(category: Category, categoryId: string): Promise<void> {
     this.categories = this.categories.map((d) => {
-      if (d.id.toValue() === category.id.toValue()) {
+      if (d.id.toValue() === categoryId) {
         return category;
       }
     });
@@ -24,8 +24,12 @@ export class InMemoryCategoryRepository extends CategoryRepository {
     );
   }
 
-  async getById(categoryId: string): Promise<Category> {
-    return this.categories.find((d) => d.id.toValue() === categoryId);
+  async getById(categoryId: string): Promise<Category | null> {
+    const itemFinded = this.categories.find(
+      (d) => d.id.toValue() === categoryId,
+    );
+    if (!itemFinded) return null;
+    return itemFinded;
   }
 
   async listAll(companyId): Promise<Category[]> {

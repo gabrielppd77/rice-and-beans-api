@@ -10,7 +10,13 @@ import { AppController } from './controllers/app.controller';
 
 import { UserLogin } from '@domain/use-cases/user/user-login';
 import { UserCreate } from '@domain/use-cases/user/user-create';
+
 import { CategoryCreate } from '@domain/use-cases/category/category-create';
+import { CategoryById } from '@domain/use-cases/category/category-by-id';
+import { CategoryDelete } from '@domain/use-cases/category/category-delete';
+import { CategoryList } from '@domain/use-cases/category/category-list';
+import { CategoryUpdate } from '@domain/use-cases/category/category-update';
+
 import { ProductCreate } from '@domain/use-cases/product/product-create';
 import { ListCategoriesAndProducts } from '@domain/use-cases/app/list-categories-and-products';
 
@@ -25,7 +31,13 @@ import { ListCategoriesAndProducts } from '@domain/use-cases/app/list-categories
   providers: [
     UserLogin,
     UserCreate,
+
     CategoryCreate,
+    CategoryById,
+    CategoryDelete,
+    CategoryList,
+    CategoryUpdate,
+
     ProductCreate,
     ListCategoriesAndProducts,
   ],

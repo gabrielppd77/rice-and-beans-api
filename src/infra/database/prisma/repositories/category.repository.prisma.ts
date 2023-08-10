@@ -18,12 +18,12 @@ export class CategoryRepositoryPrisma implements CategoryRepository {
     });
   }
 
-  async update(category: Category): Promise<void> {
+  async update(category: Category, categoryId: string): Promise<void> {
     const categoryPrisma = PrismaCategoryMapper.toPrisma(category);
     await this.prismaService.category.update({
       data: categoryPrisma,
       where: {
-        id: categoryPrisma.id,
+        id: categoryId,
       },
     });
   }
@@ -34,10 +34,11 @@ export class CategoryRepositoryPrisma implements CategoryRepository {
     });
   }
 
-  async getById(categoryId: string): Promise<Category> {
+  async getById(categoryId: string): Promise<Category | null> {
     const categoryPrisma = await this.prismaService.category.findFirst({
       where: { id: categoryId },
     });
+    if (!categoryPrisma) return null;
     return PrismaCategoryMapper.toDomain(categoryPrisma);
   }
 

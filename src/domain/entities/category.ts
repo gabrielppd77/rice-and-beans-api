@@ -19,8 +19,14 @@ export class Category extends Entity<CategoryProps> {
   get name() {
     return this.props.name;
   }
+  set name(name: string) {
+    this.props.name = name;
+  }
   get photoUrl() {
     return this.props.photoUrl;
+  }
+  set photoUrl(photoUrl: string | undefined) {
+    this.props.photoUrl = photoUrl;
   }
   get company() {
     return this.props.company;

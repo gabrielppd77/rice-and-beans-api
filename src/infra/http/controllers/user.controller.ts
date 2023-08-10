@@ -6,9 +6,9 @@ import { Public } from '@infra/http/decorators/public.decorator';
 import { UserLogin } from '@domain/use-cases/user/user-login';
 import { UserCreate } from '@domain/use-cases/user/user-create';
 
-import { UserLoginDTO } from '../dtos/user-login.dto';
-import { UserLoginResponseDTO } from '../dtos/user-login-response.dto';
-import { UserCreateDTO } from '../dtos/user-create.dto';
+import { UserLoginDTO } from '../dtos/user/user-login.dto';
+import { UserCreateDTO } from '../dtos/user/user-create.dto';
+import { UserLoginResponseDTO } from '../dtos/user/user-login-response.dto';
 
 @ApiTags('user')
 @Controller('user')
