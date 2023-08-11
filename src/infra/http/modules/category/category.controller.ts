@@ -17,8 +17,8 @@ import { CategoryDelete } from '@domain/use-cases/category/category-delete';
 import { CategoryList } from '@domain/use-cases/category/category-list';
 import { CategoryUpdate } from '@domain/use-cases/category/category-update';
 
-import { CategoryCreateUpdateDTO } from '../dtos/category/category-create-update.dto';
-import { CategoryViewModelDTO } from '../dtos/category/category-view-model.dto';
+import { CategoryCreateUpdateDTO } from './dtos/category-create-update.dto';
+import { CategoryViewModelDTO } from './dtos/category-view-model.dto';
 
 @ApiTags('category')
 @Controller('category')

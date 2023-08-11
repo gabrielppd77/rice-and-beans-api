@@ -2,7 +2,7 @@ import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { ProductCreate } from '@domain/use-cases/product/product-create';
-import { ProductToCreateDTO } from '../dtos/product/product-create.dto';
+import { ProductToCreateDTO } from './dtos/product-create.dto';
 
 @ApiTags('product')
 @Controller('product')
