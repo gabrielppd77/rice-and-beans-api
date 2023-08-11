@@ -30,7 +30,7 @@ export class UserController {
 
   @Public()
   @HttpCode(201)
-  @Post('create')
+  @Post()
   async create(@Body() body: UserCreateDTO): Promise<UserLoginResponseDTO> {
     const { user, company } = body;
 

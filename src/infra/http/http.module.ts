@@ -18,7 +18,6 @@ import { CategoryList } from '@domain/use-cases/category/category-list';
 import { CategoryUpdate } from '@domain/use-cases/category/category-update';
 
 import { ProductCreate } from '@domain/use-cases/product/product-create';
-import { ListCategoriesAndProducts } from '@domain/use-cases/app/list-categories-and-products';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
@@ -39,7 +38,6 @@ import { ListCategoriesAndProducts } from '@domain/use-cases/app/list-categories
     CategoryUpdate,
 
     ProductCreate,
-    ListCategoriesAndProducts,
   ],
 })
 export class HttpModule {}
