@@ -31,6 +31,7 @@ model Company {
   description String? @db.VarChar(255)
 
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products   Product[]
   categories Category[]
 
   @@map("companies")
@@ -51,6 +52,7 @@ model Category {
 
 model Product {
   id         String @id
+  companyId  String
   categoryId String
 
   name        String  @db.VarChar(55)
@@ -58,6 +60,7 @@ model Product {
   photoUrl    String? @db.VarChar(1000)
   description String? @db.VarChar(255)
 
+  company  Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@map("products")

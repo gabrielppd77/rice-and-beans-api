@@ -7,6 +7,7 @@ describe('ProductCreate', () => {
     const productCreate = new ProductCreate(productRepository);
 
     const productToCreate = {
+      companyId: '1234567',
       categoryId: '123456789',
       description: 'description product',
       name: 'Pizza Calabresa',
@@ -20,6 +21,9 @@ describe('ProductCreate', () => {
 
     expect(productCreated).toBeTruthy();
     expect(productCreated.id).toBeDefined();
+    expect(productCreated.companyId.toValue()).toEqual(
+      productToCreate.companyId,
+    );
     expect(productCreated.categoryId.toValue()).toEqual(
       productToCreate.categoryId,
     );

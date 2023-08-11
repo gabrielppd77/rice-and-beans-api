@@ -18,6 +18,7 @@ export class PrismaProductMapper {
       id: product.id.toValue(),
       name: product.name,
       photoUrl: product.photoUrl,
+      companyId: product.companyId.toValue(),
       categoryId: product.categoryId.toValue(),
       description: product.description,
       price: new Prisma.Decimal(product.price),
@@ -27,6 +28,7 @@ export class PrismaProductMapper {
   static toDomain(product: ProductPrismaIncluded): Product {
     return new Product(
       {
+        companyId: new UniqueEntityID(product.companyId),
         categoryId: new UniqueEntityID(product.categoryId),
         name: product.name,
         price: product.price.toNumber(),

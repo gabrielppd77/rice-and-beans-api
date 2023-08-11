@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@core/entities/unique-entity-id';
 import { Category } from './category';
 
 export interface ProductProps {
+  companyId: UniqueEntityID;
   categoryId: UniqueEntityID;
   name: string;
   price: number;
@@ -13,6 +14,9 @@ export interface ProductProps {
 }
 
 export class Product extends Entity<ProductProps> {
+  get companyId() {
+    return this.props.companyId;
+  }
   get categoryId() {
     return this.props.categoryId;
   }

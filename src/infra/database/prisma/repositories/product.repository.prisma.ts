@@ -17,4 +17,37 @@ export class ProductRepositoryPrisma implements ProductRepository {
       data: productPrisma,
     });
   }
+
+  async update(product: Product, productId: string): Promise<void> {
+    const productPrisma = PrismaProductMapper.toPrisma(product);
+    await this.prismaService.product.update({
+      data: productPrisma,
+      where: {
+        id: productId,
+      },
+    });
+  }
+
+  async delete(productId: string): Promise<void> {
+    await this.prismaService.product.delete({
+      where: { id: productId },
+    });
+  }
+
+  async getById(productId: string): Promise<Product | null> {
+    const productPrisma = await this.prismaService.product.findFirst({
+      where: { id: productId },
+    });
+    if (!productPrisma) return null;
+    return PrismaProductMapper.toDomain(productPrisma);
+  }
+
+  async listAll(companyId: string): Promise<Product[]> {
+    const productsPrisma = await this.prismaService.product.findMany({
+      where: {
+        companyId,
+      },
+    });
+    return productsPrisma.map((d) => PrismaProductMapper.toDomain(d));
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, Request } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { ProductCreate } from '@domain/use-cases/product/product-create';
@@ -11,10 +11,15 @@ export class ProductController {
 
   @HttpCode(201)
   @Post()
-  async create(@Body() body: ProductToCreateDTO): Promise<void> {
+  async create(
+    @Body() body: ProductToCreateDTO,
+    @Request() req,
+  ): Promise<void> {
     const { categoryId, name, description, price, photoUrl } = body;
+    const payload = req.user as Payload;
 
     await this.productCreate.execute({
+      companyId: payload.sub.companyId,
       categoryId,
       name,
       description,

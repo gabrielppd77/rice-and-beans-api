@@ -5,6 +5,7 @@ import { Product } from '@domain/entities/product';
 import { ProductRepository } from '@domain/repositories/product.repository';
 
 interface Request {
+  companyId: string;
   categoryId: string;
   name: string;
   price: number;
@@ -19,8 +20,9 @@ export class ProductCreate {
   constructor(private productRepository: ProductRepository) {}
 
   async execute(req: Request): Promise<Response> {
-    const { categoryId, name, price, photoUrl, description } = req;
+    const { companyId, categoryId, name, price, photoUrl, description } = req;
     const product = new Product({
+      companyId: new UniqueEntityID(companyId),
       categoryId: new UniqueEntityID(categoryId),
       name,
       price,
