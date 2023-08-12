@@ -22,10 +22,10 @@ describe('CategoryUpdate', () => {
       photoUrl: 'https://www.xd.com/',
     };
 
-    await categoryUpdate.execute({
-      ...categoryNewFields,
-      categoryId: categoryToCreate.id.toValue(),
-    });
+    await categoryUpdate.execute(
+      categoryNewFields,
+      categoryToCreate.id.toValue(),
+    );
 
     const categoryCurrent = categoryRepository.categories[0];
 

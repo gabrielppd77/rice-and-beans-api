@@ -1,6 +1,6 @@
 import { MaxLength, IsOptional } from 'class-validator';
 
-export class CategoryCreateUpdateDTO {
+export class CategoryCreateDTO {
   @MaxLength(55)
   name: string;
   @MaxLength(1000)

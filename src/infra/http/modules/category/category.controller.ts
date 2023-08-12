@@ -17,7 +17,8 @@ import { CategoryDelete } from '@domain/use-cases/category/category-delete';
 import { CategoryList } from '@domain/use-cases/category/category-list';
 import { CategoryUpdate } from '@domain/use-cases/category/category-update';
 
-import { CategoryCreateUpdateDTO } from './dtos/category-create-update.dto';
+import { CategoryCreateDTO } from './dtos/category-create.dto';
+import { CategoryUpdateDTO } from './dtos/category-update.dto';
 import { CategoryViewModelDTO } from './dtos/category-view-model.dto';
 
 @ApiTags('category')
@@ -33,10 +34,7 @@ export class CategoryController {
 
   @HttpCode(201)
   @Post()
-  async create(
-    @Body() body: CategoryCreateUpdateDTO,
-    @Request() req,
-  ): Promise<void> {
+  async create(@Body() body: CategoryCreateDTO, @Request() req): Promise<void> {
     const { name, photoUrl } = body;
     const payload = req.user as Payload;
 
@@ -71,13 +69,15 @@ export class CategoryController {
   @Put(':id')
   async update(
     @Param('id') categoryId: string,
-    @Body() body: CategoryCreateUpdateDTO,
+    @Body() body: CategoryUpdateDTO,
   ): Promise<void> {
     const { name, photoUrl } = body;
-    await this.categoryUpdate.execute({
+    await this.categoryUpdate.execute(
+      {
+        name,
+        photoUrl,
+      },
       categoryId,
-      name,
-      photoUrl,
-    });
+    );
   }
 }

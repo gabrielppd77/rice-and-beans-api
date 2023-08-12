@@ -4,7 +4,6 @@ import { CategoryRepository } from '@domain/repositories/category.repository';
 import { CategoryById } from './category-by-id';
 
 interface Request {
-  categoryId: string;
   name: string;
   photoUrl?: string;
 }
@@ -18,8 +17,8 @@ export class CategoryUpdate {
     private categoryById: CategoryById,
   ) {}
 
-  async execute(req: Request): Promise<Response> {
-    const { categoryId, name, photoUrl } = req;
+  async execute(req: Request, categoryId: string): Promise<Response> {
+    const { name, photoUrl } = req;
     const { category } = await this.categoryById.execute({ categoryId });
     category.name = name;
     category.photoUrl = photoUrl;
