@@ -2,36 +2,31 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 
-import { AppModule } from '@infra/app.module';
-import { UserLoginResponseDTO } from './dtos/user-login-response.dto';
-import { AppManager } from '../../../../../prisma/AppManager';
+import { UserModule } from './user.module';
 
 describe('AppController (e2e)', () => {
-  // let app: INestApplication;
+  let app: INestApplication;
 
-  // beforeAll(async () => {
-  //   const moduleFixture: TestingModule = await Test.createTestingModule({
-  //     imports: [AppModule],
-  //   }).compile();
+  beforeAll(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [UserModule],
+    }).compile();
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
 
-  //   app = moduleFixture.createNestApplication();
-  //   await app.init();
-  // });
+  afterAll(async () => {
+    await app.close();
+  });
 
-  // afterAll(async () => {
-  //   await app.close();
-  // });
-
-  it('/POST user', async () => {
-    const app = AppManager.getApp();
-    console.log({ app });
+  it('/POST /user', async () => {
     const response = await request(app.getHttpServer())
       .post('/user')
       .send({
         user: {
-          email: 'string',
+          email: 'email@email',
           name: 'string',
-          password: 'string',
+          password: '1234',
           phone: 'stringstri',
         },
         company: {
@@ -42,6 +37,20 @@ describe('AppController (e2e)', () => {
       });
 
     expect(response.status).toBe(HttpStatus.CREATED);
-    expect(response.body).toEqual(UserLoginResponseDTO);
+    expect(response.body.access_token).toBeTruthy();
+    expect(typeof response.body.access_token).toEqual('string');
+  });
+
+  it('/POST /user/login', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/user/login')
+      .send({
+        email: 'email@email',
+        password: '1234',
+      });
+
+    expect(response.status).toBe(HttpStatus.OK);
+    expect(response.body.access_token).toBeTruthy();
+    expect(typeof response.body.access_token).toEqual('string');
   });
 });

@@ -1,13 +1,9 @@
-import '../src/utils/config-path-alias';
-
 import NodeEnvironment from 'jest-environment-node';
 import { execSync } from 'child_process';
 
 import { randomUUID } from 'crypto';
 import { config } from 'dotenv';
 import { Client } from 'pg';
-
-import { AppManager } from './AppManager';
 
 config({ path: '.env' });
 
@@ -33,8 +29,6 @@ export default class PrismaTestEnvironment extends NodeEnvironment {
     this.global.process.env.DATABASE_URL = this.connectionString;
     await execSync('npx prisma migrate deploy');
 
-    await AppManager.startApp();
-
     return super.setup();
   }
 
@@ -45,7 +39,5 @@ export default class PrismaTestEnvironment extends NodeEnvironment {
     await client.connect();
     await client.query(`DROP SCHEMA IF EXISTS "${this.schema}" CASCADE`);
     await client.end();
-
-    await AppManager.stopApp();
   }
 }

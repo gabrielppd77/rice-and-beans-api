@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post, Request } from '@nestjs/common';
+import { Body, Controller, Post, Request } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { ProductCreate } from '@domain/use-cases/product/product-create';
@@ -9,7 +9,6 @@ import { ProductToCreateDTO } from './dtos/product-create.dto';
 export class ProductController {
   constructor(private productCreate: ProductCreate) {}
 
-  @HttpCode(201)
   @Post()
   async create(
     @Body() body: ProductToCreateDTO,

@@ -5,7 +5,6 @@ import {
   Get,
   Delete,
   Put,
-  HttpCode,
   Param,
   Request,
 } from '@nestjs/common';
@@ -32,7 +31,6 @@ export class CategoryController {
     private categoryUpdate: CategoryUpdate,
   ) {}
 
-  @HttpCode(201)
   @Post()
   async create(@Body() body: CategoryCreateDTO, @Request() req): Promise<void> {
     const { name, photoUrl } = body;
