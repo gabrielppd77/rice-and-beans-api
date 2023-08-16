@@ -3,20 +3,18 @@ import * as request from 'supertest';
 
 import { AppFactory } from '@test/factories/app.factory';
 
-import { UserModule } from './user.module';
-
 describe('UserController', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
-    app = await AppFactory.startApp(UserModule);
+    app = await AppFactory.startApp();
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('/POST /user', async () => {
+  it('should create an user', async () => {
     const response = await request(app.getHttpServer())
       .post('/user')
       .send({
@@ -37,7 +35,7 @@ describe('UserController', () => {
     expect(response.body.access_token).toBeTruthy();
   });
 
-  it('/POST /user/login', async () => {
+  it('should login an user', async () => {
     const response = await request(app.getHttpServer())
       .post('/user/login')
       .send({
