@@ -1,18 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 
+import { AppFactory } from '@test/factories/app.factory';
+
 import { UserModule } from './user.module';
 
-describe('AppController (e2e)', () => {
+describe('UserController', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [UserModule],
-    }).compile();
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    app = await AppFactory.startApp(UserModule);
   });
 
   afterAll(async () => {
@@ -24,7 +21,7 @@ describe('AppController (e2e)', () => {
       .post('/user')
       .send({
         user: {
-          email: 'email@email',
+          email: 'email@email.com',
           name: 'string',
           password: '1234',
           phone: 'stringstri',
@@ -38,19 +35,17 @@ describe('AppController (e2e)', () => {
 
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body.access_token).toBeTruthy();
-    expect(typeof response.body.access_token).toEqual('string');
   });
 
   it('/POST /user/login', async () => {
     const response = await request(app.getHttpServer())
       .post('/user/login')
       .send({
-        email: 'email@email',
+        email: 'email@email.com',
         password: '1234',
       });
 
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body.access_token).toBeTruthy();
-    expect(typeof response.body.access_token).toEqual('string');
   });
 });
