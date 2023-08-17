@@ -1,6 +1,8 @@
 import { MaxLength, IsUUID, IsOptional, IsNumber } from 'class-validator';
 
-export class ProductCreateDTO {
+export class ProductUpdateDTO {
+  @IsUUID()
+  id: string;
   @IsUUID()
   categoryId: string;
   @MaxLength(55)
