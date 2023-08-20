@@ -18,7 +18,8 @@ import { CategoryUpdate } from '@domain/use-cases/category/category-update';
 
 import { CategoryCreateDTO } from './dtos/category-create.dto';
 import { CategoryUpdateDTO } from './dtos/category-update.dto';
-import { CategoryViewModelDTO } from './dtos/category-view-model.dto';
+import { CategoryGetByIdDTO } from './dtos/category-get-by-id.dto';
+import { CategoryListAllDTO } from './dtos/category-list-all.dto';
 
 @ApiTags('category')
 @Controller('category')
@@ -44,9 +45,9 @@ export class CategoryController {
   }
 
   @Get(':id')
-  async getById(@Param('id') id: string): Promise<CategoryViewModelDTO> {
+  async getById(@Param('id') id: string): Promise<CategoryGetByIdDTO> {
     const { category } = await this.categoryById.execute({ categoryId: id });
-    return new CategoryViewModelDTO(category);
+    return new CategoryGetByIdDTO(category);
   }
 
   @Delete(':id')
@@ -55,13 +56,12 @@ export class CategoryController {
   }
 
   @Get()
-  async listAll(@Request() req): Promise<CategoryViewModelDTO[]> {
+  async listAll(@Request() req): Promise<CategoryListAllDTO[]> {
     const payload = req.user as Payload;
     const { categories: categoriesDomain } = await this.categoryList.execute({
       companyId: payload.sub.companyId,
     });
-    const categories = categoriesDomain.map((d) => new CategoryViewModelDTO(d));
-    return categories;
+    return categoriesDomain.map((d) => new CategoryListAllDTO(d));
   }
 
   @Put(':id')

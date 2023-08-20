@@ -6,3 +6,7 @@ export class UserLoginDTO {
   @IsString()
   password: string;
 }
+
+export class UserLoginResponseDTO {
+  access_token: string;
+}

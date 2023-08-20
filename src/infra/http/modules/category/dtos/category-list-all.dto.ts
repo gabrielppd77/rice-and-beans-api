@@ -1,6 +1,6 @@
 import { Category } from '@domain/entities/category';
 
-export class CategoryViewModelDTO {
+export class CategoryListAllDTO {
   id: string;
   name: string;
   photoUrl?: string;

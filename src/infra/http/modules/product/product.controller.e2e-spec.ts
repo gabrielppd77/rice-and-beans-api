@@ -50,12 +50,8 @@ describe('ProductController', () => {
     product = response.body[0];
 
     expect(product.id).toBeTruthy();
-    expect(product.categoryId).toBeTruthy();
-    expect(product.categoryId).toEqual(categoryId);
     expect(product.name).toBeTruthy();
     expect(product.price).toBeTruthy();
-    expect(product.photoUrl).toBeTruthy();
-    expect(product.description).toBeTruthy();
   });
 
   it('should get a product', async () => {

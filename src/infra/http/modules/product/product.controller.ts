@@ -18,7 +18,8 @@ import { ProductUpdate } from '@domain/use-cases/product/product-update';
 
 import { ProductCreateDTO } from './dtos/product-create.dto';
 import { ProductUpdateDTO } from './dtos/product-update.dto';
-import { ProductViewModelDTO } from './dtos/product-view-model.dto';
+import { ProductGetByIdDTO } from './dtos/product-get-by-id.dto';
+import { ProductListAllDTO } from './dtos/product-list-all.dto';
 
 @ApiTags('product')
 @Controller('product')
@@ -47,9 +48,9 @@ export class ProductController {
   }
 
   @Get(':id')
-  async getById(@Param('id') id: string): Promise<ProductViewModelDTO> {
+  async getById(@Param('id') id: string): Promise<ProductGetByIdDTO> {
     const { product } = await this.productById.execute({ productId: id });
-    return new ProductViewModelDTO(product);
+    return new ProductGetByIdDTO(product);
   }
 
   @Delete(':id')
@@ -58,13 +59,12 @@ export class ProductController {
   }
 
   @Get()
-  async listAll(@Request() req): Promise<ProductViewModelDTO[]> {
+  async listAll(@Request() req): Promise<ProductListAllDTO[]> {
     const payload = req.user as Payload;
     const { products: categoriesDomain } = await this.productList.execute({
       companyId: payload.sub.companyId,
     });
-    const categories = categoriesDomain.map((d) => new ProductViewModelDTO(d));
-    return categories;
+    return categoriesDomain.map((d) => new ProductListAllDTO(d));
   }
 
   @Put(':id')
