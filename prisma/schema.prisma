@@ -29,6 +29,7 @@ model Company {
   name        String  @db.VarChar(55)
   phone       String? @db.VarChar(11)
   description String? @db.VarChar(255)
+  urlAccess   String  @db.VarChar(255)
 
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   products   Product[]

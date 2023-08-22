@@ -35,7 +35,7 @@ export class CategoryRepositoryPrisma implements CategoryRepository {
   }
 
   async getById(categoryId: string): Promise<Category | null> {
-    const categoryPrisma = await this.prismaService.category.findFirst({
+    const categoryPrisma = await this.prismaService.category.findUnique({
       where: { id: categoryId },
     });
     if (!categoryPrisma) return null;

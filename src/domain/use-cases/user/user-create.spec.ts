@@ -66,7 +66,7 @@ describe('UserCreate', () => {
       phone: 'phoneUser',
     };
     const companyToCreate = {
-      name: 'nameCompany',
+      name: 'Name of Company',
       description: 'descriptionCompany',
       phone: 'phoneCompany',
     };
@@ -91,6 +91,7 @@ describe('UserCreate', () => {
     expect(companyCreatedInDB.name).toEqual(companyToCreate.name);
     expect(companyCreatedInDB.description).toEqual(companyToCreate.description);
     expect(companyCreatedInDB.phone).toEqual(companyToCreate.phone);
+    expect(companyCreatedInDB.urlAccess).toEqual('name-of-company');
   });
 
   it('should be able to generate access_token', async () => {

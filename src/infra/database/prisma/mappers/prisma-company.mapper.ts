@@ -21,6 +21,7 @@ export class PrismaCompanyMapper {
       phone: company.phone,
       description: company.description,
       userId: company.userId.toValue(),
+      urlAccess: company.urlAccess,
     };
   }
 
@@ -39,6 +40,7 @@ export class PrismaCompanyMapper {
         user: company.user
           ? PrismaUserMapper.toDomain(company.user)
           : undefined,
+        urlAccess: company.urlAccess,
       },
       company.id,
     );
