@@ -13,7 +13,7 @@ export class LoginFactory {
           phone: 'stringstri',
         },
         company: {
-          name: 'string',
+          name: 'Company Name',
           phone: 'stringstri',
           description: 'string',
         },
