@@ -5,7 +5,9 @@ import { Bill } from './bill';
 
 interface OrderProps {
   billId: UniqueEntityID;
+
   total: number;
+  observation?: string;
 
   bill?: Bill;
   items?: OrderItem[];

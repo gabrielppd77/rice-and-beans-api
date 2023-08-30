@@ -6,6 +6,7 @@ import { Order } from './order';
 interface OrderItemProps {
   orderId: UniqueEntityID;
   productId: UniqueEntityID;
+
   observation?: string;
   quantity: number;
   total: number;

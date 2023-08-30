@@ -5,6 +5,7 @@ import { Order } from './order';
 
 interface BillProps {
   clientId: UniqueEntityID;
+
   total: number;
 
   client?: Client;
