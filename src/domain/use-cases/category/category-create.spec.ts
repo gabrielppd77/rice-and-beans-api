@@ -9,7 +9,6 @@ describe('CategoryCreate', () => {
     const categoryToCreate = {
       name: 'cafés',
       companyId: '1',
-      photoUrl: 'https://www.example.com/',
     };
 
     await categoryCreate.execute(categoryToCreate);
@@ -22,7 +21,6 @@ describe('CategoryCreate', () => {
     expect(categoryCreated.companyId.toValue()).toEqual(
       categoryToCreate.companyId,
     );
-    expect(categoryCreated.photoUrl).toEqual(categoryToCreate.photoUrl);
     expect(categoryCreated.order).toEqual(1);
   });
 });

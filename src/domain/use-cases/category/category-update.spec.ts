@@ -13,14 +13,12 @@ describe('CategoryUpdate', () => {
     const categoryToCreate = new Category({
       name: 'cafés',
       companyId: new UniqueEntityID(),
-      photoUrl: 'https://www.example.com/',
       order: 1,
     });
     categoryRepository.create(categoryToCreate);
 
     const categoryNewFields = {
       name: 'pizzas',
-      photoUrl: 'https://www.xd.com/',
     };
 
     await categoryUpdate.execute(
@@ -33,6 +31,5 @@ describe('CategoryUpdate', () => {
     expect(categoryCurrent).toBeTruthy();
     expect(categoryCurrent.id.toValue()).toEqual(categoryToCreate.id.toValue());
     expect(categoryCurrent.name).toEqual(categoryNewFields.name);
-    expect(categoryCurrent.photoUrl).toEqual(categoryNewFields.photoUrl);
   });
 });

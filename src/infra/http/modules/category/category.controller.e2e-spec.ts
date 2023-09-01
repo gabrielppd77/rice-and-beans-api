@@ -25,7 +25,6 @@ describe('CategoryController', () => {
       .post('/category')
       .send({
         name: 'category-name',
-        photoUrl: 'photo-url',
       })
       .set('Authorization', `Bearer ${access_token}`);
     expect(response.status).toBe(HttpStatus.CREATED);
@@ -43,7 +42,6 @@ describe('CategoryController', () => {
 
     expect(category.id).toBeTruthy();
     expect(category.name).toBeTruthy();
-    expect(category.photoUrl).toBeTruthy();
     expect(category.order).toEqual(1);
   });
 
@@ -60,7 +58,6 @@ describe('CategoryController', () => {
     expect(categoryCurrent.id).toBeTruthy();
     expect(categoryCurrent.id).toEqual(category.id);
     expect(categoryCurrent.name).toBeTruthy();
-    expect(categoryCurrent.photoUrl).toBeTruthy();
     expect(categoryCurrent.order).toEqual(1);
   });
 
@@ -70,7 +67,6 @@ describe('CategoryController', () => {
       .send({
         id: category.id,
         name: 'category-name-new',
-        photoUrl: 'photo-url-new',
       })
       .set('Authorization', `Bearer ${access_token}`);
 

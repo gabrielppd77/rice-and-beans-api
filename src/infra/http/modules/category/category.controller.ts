@@ -34,13 +34,12 @@ export class CategoryController {
 
   @Post()
   async create(@Body() body: CategoryCreateDTO, @Request() req): Promise<void> {
-    const { name, photoUrl } = body;
+    const { name } = body;
     const payload = req.user as Payload;
 
     await this.categoryCreate.execute({
       name,
       companyId: payload.sub.companyId,
-      photoUrl,
     });
   }
 
@@ -69,11 +68,10 @@ export class CategoryController {
     @Param('id') categoryId: string,
     @Body() body: CategoryUpdateDTO,
   ): Promise<void> {
-    const { name, photoUrl } = body;
+    const { name } = body;
     await this.categoryUpdate.execute(
       {
         name,
-        photoUrl,
       },
       categoryId,
     );

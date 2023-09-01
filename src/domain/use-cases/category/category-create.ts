@@ -7,7 +7,6 @@ import { CategoryRepository } from '@domain/repositories/category.repository';
 interface Request {
   companyId: string;
   name: string;
-  photoUrl?: string;
 }
 
 type Response = void;
@@ -17,12 +16,11 @@ export class CategoryCreate {
   constructor(private categoryRepository: CategoryRepository) {}
 
   async execute(req: Request): Promise<Response> {
-    const { companyId, name, photoUrl } = req;
+    const { companyId, name } = req;
     const count = await this.categoryRepository.countInCompany(companyId);
     const category = new Category({
       companyId: new UniqueEntityID(companyId),
       name,
-      photoUrl,
       order: count + 1,
     });
     await this.categoryRepository.create(category);

@@ -10,7 +10,6 @@ export class CategoryFactory {
       .post('/category')
       .send({
         name: 'category-name',
-        photoUrl: 'photo-url',
       })
       .set('Authorization', `Bearer ${access_token}`);
 

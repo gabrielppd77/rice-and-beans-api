@@ -5,7 +5,6 @@ import { CategoryById } from './category-by-id';
 
 interface Request {
   name: string;
-  photoUrl?: string;
 }
 
 type Response = void;
@@ -18,10 +17,9 @@ export class CategoryUpdate {
   ) {}
 
   async execute(req: Request, categoryId: string): Promise<Response> {
-    const { name, photoUrl } = req;
+    const { name } = req;
     const { category } = await this.categoryById.execute({ categoryId });
     category.name = name;
-    category.photoUrl = photoUrl;
     await this.categoryRepository.update(category, categoryId);
   }
 }

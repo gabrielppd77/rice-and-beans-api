@@ -6,7 +6,6 @@ import { Company } from './company';
 export interface CategoryProps {
   companyId: UniqueEntityID;
   name: string;
-  photoUrl?: string;
   order: number;
 
   company?: Company;
@@ -22,12 +21,6 @@ export class Category extends Entity<CategoryProps> {
   }
   set name(name: string) {
     this.props.name = name;
-  }
-  get photoUrl() {
-    return this.props.photoUrl;
-  }
-  set photoUrl(photoUrl: string | undefined) {
-    this.props.photoUrl = photoUrl;
   }
   get order() {
     return this.props.order;
