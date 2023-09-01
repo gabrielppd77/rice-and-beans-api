@@ -25,6 +25,7 @@ export class PrismaProductMapper {
       categoryId: product.categoryId.toValue(),
       description: product.description,
       price: new Prisma.Decimal(product.price),
+      order: product.order,
     };
   }
 
@@ -43,6 +44,7 @@ export class PrismaProductMapper {
         company: product.company
           ? PrismaCompanyMapper.toDomain(product.company)
           : undefined,
+        order: product.order,
       },
       product.id,
     );

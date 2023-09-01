@@ -10,6 +10,7 @@ export interface ProductProps {
   price: number;
   photoUrl?: string;
   description?: string;
+  order: number;
 
   category?: Category;
   company?: Company;
@@ -53,6 +54,10 @@ export class Product extends Entity<ProductProps> {
   }
   set description(description: string) {
     this.props.description = description;
+  }
+
+  get order() {
+    return this.props.order;
   }
 
   get category() {

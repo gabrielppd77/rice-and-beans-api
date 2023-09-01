@@ -47,7 +47,19 @@ export class ProductRepositoryPrisma implements ProductRepository {
       where: {
         companyId,
       },
+      orderBy: {
+        order: 'asc',
+      },
     });
     return productsPrisma.map((d) => PrismaProductMapper.toDomain(d));
+  }
+
+  async countInCompany(companyId: string): Promise<number> {
+    const count = await this.prismaService.product.count({
+      where: {
+        companyId: companyId,
+      },
+    });
+    return count;
   }
 }

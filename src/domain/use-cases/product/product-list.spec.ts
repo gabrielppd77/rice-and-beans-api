@@ -17,6 +17,7 @@ describe('ProductList', () => {
       price: 25.23,
       photoUrl: 'photoUrl1',
       description: 'description1',
+      order: 1,
     });
     const productToCreate2 = new Product({
       companyId: new UniqueEntityID(),
@@ -25,6 +26,7 @@ describe('ProductList', () => {
       price: 30,
       photoUrl: 'photoUrl2',
       description: 'description2',
+      order: 1,
     });
     productRepository.create(productToCreate1);
     productRepository.create(productToCreate2);

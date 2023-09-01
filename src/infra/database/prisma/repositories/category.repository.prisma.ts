@@ -47,7 +47,19 @@ export class CategoryRepositoryPrisma implements CategoryRepository {
       where: {
         companyId,
       },
+      orderBy: {
+        order: 'asc',
+      },
     });
     return categoriesPrisma.map((d) => PrismaCategoryMapper.toDomain(d));
+  }
+
+  async countInCompany(companyId: string): Promise<number> {
+    const count = await this.prismaService.category.count({
+      where: {
+        companyId: companyId,
+      },
+    });
+    return count;
   }
 }

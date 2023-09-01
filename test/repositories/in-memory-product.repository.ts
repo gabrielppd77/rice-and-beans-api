@@ -29,4 +29,9 @@ export class InMemoryProductRepository extends ProductRepository {
   async listAll(companyId): Promise<Product[]> {
     return this.products.filter((d) => d.companyId.toValue() === companyId);
   }
+
+  async countInCompany(companyId: string): Promise<number> {
+    return this.products.filter((d) => d.companyId.toValue() === companyId)
+      .length;
+  }
 }

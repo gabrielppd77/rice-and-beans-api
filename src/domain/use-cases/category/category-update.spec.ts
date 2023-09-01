@@ -14,6 +14,7 @@ describe('CategoryUpdate', () => {
       name: 'cafés',
       companyId: new UniqueEntityID(),
       photoUrl: 'https://www.example.com/',
+      order: 1,
     });
     categoryRepository.create(categoryToCreate);
 

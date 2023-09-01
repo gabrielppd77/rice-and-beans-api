@@ -9,4 +9,5 @@ export abstract class ProductRepository {
   abstract delete(productId: string): Promise<void>;
   abstract getById(productId: string): Promise<Product | null>;
   abstract listAll(productId: string): Promise<Product[]>;
+  abstract countInCompany(companyId: string): Promise<number>;
 }

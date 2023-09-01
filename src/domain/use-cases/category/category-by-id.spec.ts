@@ -13,6 +13,7 @@ describe('CategoryById', () => {
     const categoryToCreate = new Category({
       name: 'Category 1',
       companyId: new UniqueEntityID(),
+      order: 1,
     });
     categoryRepository.create(categoryToCreate);
 

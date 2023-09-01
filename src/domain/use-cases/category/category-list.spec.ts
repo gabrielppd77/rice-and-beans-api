@@ -13,10 +13,12 @@ describe('CategoryList', () => {
     const categoryToCreate1 = new Category({
       name: 'Category 1',
       companyId: companyIdToList,
+      order: 1,
     });
     const categoryToCreate2 = new Category({
       name: 'Category 2',
       companyId: new UniqueEntityID(),
+      order: 1,
     });
     categoryRepository.create(categoryToCreate1);
     categoryRepository.create(categoryToCreate2);

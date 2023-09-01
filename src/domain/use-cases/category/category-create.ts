@@ -18,10 +18,12 @@ export class CategoryCreate {
 
   async execute(req: Request): Promise<Response> {
     const { companyId, name, photoUrl } = req;
+    const count = await this.categoryRepository.countInCompany(companyId);
     const category = new Category({
       companyId: new UniqueEntityID(companyId),
       name,
       photoUrl,
+      order: count + 1,
     });
     await this.categoryRepository.create(category);
   }

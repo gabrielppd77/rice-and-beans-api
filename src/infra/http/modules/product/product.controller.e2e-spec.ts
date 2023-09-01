@@ -52,6 +52,7 @@ describe('ProductController', () => {
     expect(product.id).toBeTruthy();
     expect(product.name).toBeTruthy();
     expect(product.price).toBeTruthy();
+    expect(product.order).toEqual(1);
   });
 
   it('should get a product', async () => {
@@ -72,6 +73,7 @@ describe('ProductController', () => {
     expect(productCurrent.price).toBeTruthy();
     expect(productCurrent.photoUrl).toBeTruthy();
     expect(productCurrent.description).toBeTruthy();
+    expect(productCurrent.order).toEqual(1);
   });
 
   it('should update a product', async () => {

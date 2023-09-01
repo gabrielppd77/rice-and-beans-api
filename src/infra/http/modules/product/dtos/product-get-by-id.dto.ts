@@ -8,6 +8,7 @@ export class ProductGetByIdDTO {
   price: number;
   photoUrl?: string;
   description?: string;
+  order: number;
   constructor(productDomain: Product) {
     this.id = productDomain.id.toValue();
     this.companyId = productDomain.companyId.toValue();
@@ -16,5 +17,6 @@ export class ProductGetByIdDTO {
     this.price = productDomain.price;
     this.photoUrl = productDomain.photoUrl;
     this.description = productDomain.description;
+    this.order = productDomain.order;
   }
 }

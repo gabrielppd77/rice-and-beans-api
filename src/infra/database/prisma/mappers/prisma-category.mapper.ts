@@ -21,6 +21,7 @@ export class PrismaCategoryMapper {
       name: category.name,
       companyId: category.companyId.toValue(),
       photoUrl: category.photoUrl,
+      order: category.order,
     };
   }
 
@@ -37,6 +38,7 @@ export class PrismaCategoryMapper {
         company: category.company
           ? PrismaCompanyMapper.toDomain(category.company)
           : undefined,
+        order: category.order,
       },
       category.id,
     );

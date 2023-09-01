@@ -17,6 +17,7 @@ describe('ProductDelete', () => {
       price: 25.23,
       photoUrl: 'photoUrl',
       description: 'description',
+      order: 1,
     });
     productRepository.create(productToCreate);
 

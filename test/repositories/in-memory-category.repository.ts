@@ -33,4 +33,9 @@ export class InMemoryCategoryRepository extends CategoryRepository {
   async listAll(companyId): Promise<Category[]> {
     return this.categories.filter((d) => d.companyId.toValue() === companyId);
   }
+
+  async countInCompany(companyId: string): Promise<number> {
+    return this.categories.filter((d) => d.companyId.toValue() === companyId)
+      .length;
+  }
 }

@@ -15,6 +15,7 @@ describe('ProductById', () => {
       companyId: new UniqueEntityID(),
       categoryId: new UniqueEntityID(),
       price: 22.5,
+      order: 1,
     });
     productRepository.create(productToCreate);
 

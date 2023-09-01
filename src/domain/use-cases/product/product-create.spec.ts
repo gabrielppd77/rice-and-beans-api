@@ -31,5 +31,6 @@ describe('ProductCreate', () => {
     expect(productCreated.name).toEqual(productToCreate.name);
     expect(productCreated.photoUrl).toEqual(productToCreate.photoUrl);
     expect(productCreated.price).toEqual(productToCreate.price);
+    expect(productCreated.order).toEqual(1);
   });
 });

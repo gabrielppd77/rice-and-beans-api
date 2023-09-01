@@ -9,4 +9,5 @@ export abstract class CategoryRepository {
   abstract delete(categoryId: string): Promise<void>;
   abstract getById(categoryId: string): Promise<Category | null>;
   abstract listAll(companyId: string): Promise<Category[]>;
+  abstract countInCompany(companyId: string): Promise<number>;
 }

@@ -23,5 +23,6 @@ describe('CategoryCreate', () => {
       categoryToCreate.companyId,
     );
     expect(categoryCreated.photoUrl).toEqual(categoryToCreate.photoUrl);
+    expect(categoryCreated.order).toEqual(1);
   });
 });

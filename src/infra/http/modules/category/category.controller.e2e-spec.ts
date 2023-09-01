@@ -44,6 +44,7 @@ describe('CategoryController', () => {
     expect(category.id).toBeTruthy();
     expect(category.name).toBeTruthy();
     expect(category.photoUrl).toBeTruthy();
+    expect(category.order).toEqual(1);
   });
 
   it('should get a category', async () => {
@@ -60,6 +61,7 @@ describe('CategoryController', () => {
     expect(categoryCurrent.id).toEqual(category.id);
     expect(categoryCurrent.name).toBeTruthy();
     expect(categoryCurrent.photoUrl).toBeTruthy();
+    expect(categoryCurrent.order).toEqual(1);
   });
 
   it('should update a category', async () => {
