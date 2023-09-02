@@ -1,27 +1,31 @@
-import { InMemoryAppRepository } from '@test/repositories/in-memory-app.repository';
-import { AppCompanyGetByUrl } from './app-company-get-by-url';
+import { InMemoryConsumerRepository } from '@test/repositories/in-memory-consumer.repository';
+import { ConsumerCompanyGetByUrl } from './consumer-company-get-by-url';
 
 import { RegisterNotFoundException } from '@domain/exceptions/register-not-found.exception';
 import { Company } from '@domain/entities/company';
 
 import { UniqueEntityID } from '@core/entities/unique-entity-id';
 
-describe('AppCompanyGetByUrl', () => {
+describe('ConsumerCompanyGetByUrl', () => {
   it('should be show error when not found a register', async () => {
-    const productRepository = new InMemoryAppRepository();
-    const appCompanyGetByUrl = new AppCompanyGetByUrl(productRepository);
+    const productRepository = new InMemoryConsumerRepository();
+    const consumerCompanyGetByUrl = new ConsumerCompanyGetByUrl(
+      productRepository,
+    );
 
     await expect(
       async () =>
-        await appCompanyGetByUrl.execute({
+        await consumerCompanyGetByUrl.execute({
           urlAccess: 'url-invalid',
         }),
     ).rejects.toThrow(RegisterNotFoundException);
   });
 
   it('shoud be find a company correctly', async () => {
-    const productRepository = new InMemoryAppRepository();
-    const appCompanyGetByUrl = new AppCompanyGetByUrl(productRepository);
+    const productRepository = new InMemoryConsumerRepository();
+    const consumerCompanyGetByUrl = new ConsumerCompanyGetByUrl(
+      productRepository,
+    );
 
     const companyToCreate = new Company({
       name: 'Company Truth Name',
@@ -31,7 +35,7 @@ describe('AppCompanyGetByUrl', () => {
 
     productRepository.companies.push(companyToCreate);
 
-    const { company } = await appCompanyGetByUrl.execute({
+    const { company } = await consumerCompanyGetByUrl.execute({
       urlAccess: companyToCreate.urlAccess,
     });
 

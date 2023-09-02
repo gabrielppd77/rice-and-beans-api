@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 
 import { PrismaService } from './prisma/prisma.service';
 
-import { AppRepository } from '@domain/repositories/app.repository';
-import { AppRepositoryPrisma } from './prisma/repositories/app.repository.prisma';
+import { ConsumerRepository } from '@domain/repositories/consumer.repository';
+import { ConsumerRepositoryPrisma } from './prisma/repositories/consumer.repository.prisma';
 
 import { UserRepository } from '@domain/repositories/user.repository';
 import { UserRepositoryPrisma } from './prisma/repositories/user.repository.prisma';
@@ -18,8 +18,8 @@ import { ProductRepositoryPrisma } from './prisma/repositories/product.repositor
   providers: [
     PrismaService,
     {
-      provide: AppRepository,
-      useClass: AppRepositoryPrisma,
+      provide: ConsumerRepository,
+      useClass: ConsumerRepositoryPrisma,
     },
     {
       provide: UserRepository,
@@ -35,7 +35,7 @@ import { ProductRepositoryPrisma } from './prisma/repositories/product.repositor
     },
   ],
   exports: [
-    AppRepository,
+    ConsumerRepository,
     UserRepository,
     CategoryRepository,
     ProductRepository,

@@ -25,7 +25,7 @@ describe('AppController', () => {
 
   it('should list all categories and products of company and the company', async () => {
     const response = await request(app.getHttpServer()).get(
-      '/app/company/company-name',
+      '/consumer/company/company-name',
     );
 
     expect(response.status).toBe(HttpStatus.OK);

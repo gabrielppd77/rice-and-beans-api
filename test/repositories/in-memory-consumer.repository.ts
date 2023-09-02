@@ -1,8 +1,8 @@
 import { Company } from '@domain/entities/company';
 
-import { AppRepository } from '@domain/repositories/app.repository';
+import { ConsumerRepository } from '@domain/repositories/consumer.repository';
 
-export class InMemoryAppRepository extends AppRepository {
+export class InMemoryConsumerRepository extends ConsumerRepository {
   public companies: Company[] = [];
 
   async getCompanyByUrlAccess(urlAccess: string): Promise<Company | null> {

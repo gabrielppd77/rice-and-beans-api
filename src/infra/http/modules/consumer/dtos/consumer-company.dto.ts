@@ -2,7 +2,7 @@ import { Category } from '@domain/entities/category';
 import { Company } from '@domain/entities/company';
 import { Product } from '@domain/entities/product';
 
-class AppCompanyProductDTO {
+class ConsumerCompanyProductDTO {
   id: string;
   categoryId: string;
   name: string;
@@ -19,30 +19,30 @@ class AppCompanyProductDTO {
   }
 }
 
-class AppCompanyCategoryDTO {
+class ConsumerCompanyCategoryDTO {
   id: string;
   companyId: string;
   name: string;
-  products: AppCompanyProductDTO[];
+  products: ConsumerCompanyProductDTO[];
   constructor(category: Category) {
     this.id = category.id.toValue();
     this.companyId = category.companyId.toValue();
     this.name = category.name;
     this.products = category.products
-      ? category.products.map((d) => new AppCompanyProductDTO(d))
+      ? category.products.map((d) => new ConsumerCompanyProductDTO(d))
       : [];
   }
 }
 
-export class AppCompanyDTO {
+export class ConsumerCompanyDTO {
   id: string;
   name: string;
-  categories: AppCompanyCategoryDTO[];
+  categories: ConsumerCompanyCategoryDTO[];
   constructor(company: Company) {
     this.id = company.id.toValue();
     this.name = company.name;
     this.categories = company.categories
-      ? company.categories.map((d) => new AppCompanyCategoryDTO(d))
+      ? company.categories.map((d) => new ConsumerCompanyCategoryDTO(d))
       : [];
   }
 }

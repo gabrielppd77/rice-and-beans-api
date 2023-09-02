@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { Company } from '@domain/entities/company';
 
-import { AppRepository } from '@domain/repositories/app.repository';
+import { ConsumerRepository } from '@domain/repositories/consumer.repository';
 
 import { RegisterNotFoundException } from '@domain/exceptions/register-not-found.exception';
 
@@ -15,12 +15,14 @@ interface Response {
 }
 
 @Injectable()
-export class AppCompanyGetByUrl {
-  constructor(private appRepository: AppRepository) {}
+export class ConsumerCompanyGetByUrl {
+  constructor(private consumerRepository: ConsumerRepository) {}
 
   async execute(req: Request): Promise<Response> {
     const { urlAccess } = req;
-    const company = await this.appRepository.getCompanyByUrlAccess(urlAccess);
+    const company = await this.consumerRepository.getCompanyByUrlAccess(
+      urlAccess,
+    );
     if (!company) throw new RegisterNotFoundException();
     return { company };
   }
