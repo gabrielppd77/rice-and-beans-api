@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Post,
+  Patch,
   Get,
   Delete,
   Put,
@@ -15,11 +16,13 @@ import { CategoryById } from '@domain/use-cases/category/category-by-id';
 import { CategoryDelete } from '@domain/use-cases/category/category-delete';
 import { CategoryList } from '@domain/use-cases/category/category-list';
 import { CategoryUpdate } from '@domain/use-cases/category/category-update';
+import { CategoryUpdateManyOrders } from '@domain/use-cases/category/category-update-many-orders';
 
 import { CategoryCreateDTO } from './dtos/category-create.dto';
 import { CategoryUpdateDTO } from './dtos/category-update.dto';
 import { CategoryGetByIdDTO } from './dtos/category-get-by-id.dto';
 import { CategoryListAllDTO } from './dtos/category-list-all.dto';
+import { CategoryUpdateManyOrdersDTO } from './dtos/category-update-many-orders.dto';
 
 @ApiTags('category')
 @Controller('category')
@@ -30,6 +33,7 @@ export class CategoryController {
     private categoryDelete: CategoryDelete,
     private categoryList: CategoryList,
     private categoryUpdate: CategoryUpdate,
+    private categoryUpdateManyOrders: CategoryUpdateManyOrders,
   ) {}
 
   @Post()
@@ -75,5 +79,13 @@ export class CategoryController {
       },
       categoryId,
     );
+  }
+
+  @Patch('update-many-orders')
+  async updateManyOrders(
+    @Body() body: CategoryUpdateManyOrdersDTO,
+  ): Promise<void> {
+    const { categories } = body;
+    await this.categoryUpdateManyOrders.execute({ categories });
   }
 }

@@ -10,4 +10,7 @@ export abstract class CategoryRepository {
   abstract getById(categoryId: string): Promise<Category | null>;
   abstract listAll(companyId: string): Promise<Category[]>;
   abstract countInCompany(companyId: string): Promise<number>;
+  abstract updateManyOrders(
+    categories: { id: string; order: number }[],
+  ): Promise<void>;
 }

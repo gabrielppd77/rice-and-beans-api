@@ -62,4 +62,21 @@ export class CategoryRepositoryPrisma implements CategoryRepository {
     });
     return count;
   }
+
+  async updateManyOrders(
+    categories: { id: string; order: number }[],
+  ): Promise<void> {
+    await Promise.all(
+      categories.map(({ id, order }) =>
+        this.prismaService.category.update({
+          where: {
+            id,
+          },
+          data: {
+            order,
+          },
+        }),
+      ),
+    );
+  }
 }

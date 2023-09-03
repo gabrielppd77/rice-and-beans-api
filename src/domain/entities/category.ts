@@ -25,6 +25,9 @@ export class Category extends Entity<CategoryProps> {
   get order() {
     return this.props.order;
   }
+  set order(order: number) {
+    this.props.order = order;
+  }
   get company() {
     return this.props.company;
   }

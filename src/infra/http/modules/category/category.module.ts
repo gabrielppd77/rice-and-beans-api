@@ -10,6 +10,7 @@ import { CategoryById } from '@domain/use-cases/category/category-by-id';
 import { CategoryDelete } from '@domain/use-cases/category/category-delete';
 import { CategoryList } from '@domain/use-cases/category/category-list';
 import { CategoryUpdate } from '@domain/use-cases/category/category-update';
+import { CategoryUpdateManyOrders } from '@domain/use-cases/category/category-update-many-orders';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
@@ -20,6 +21,7 @@ import { CategoryUpdate } from '@domain/use-cases/category/category-update';
     CategoryDelete,
     CategoryList,
     CategoryUpdate,
+    CategoryUpdateManyOrders,
   ],
 })
 export class CategoryModule {}

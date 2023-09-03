@@ -79,4 +79,15 @@ describe('CategoryController', () => {
       .set('Authorization', `Bearer ${access_token}`);
     expect(response.status).toBe(HttpStatus.OK);
   });
+
+  it('should update the order of severals categories', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/category/update-many-orders')
+      .set('Authorization', `Bearer ${access_token}`)
+      .send({
+        id: category.id,
+        name: 'category-name-new',
+      });
+    expect(response.status).toBe(HttpStatus.OK);
+  });
 });

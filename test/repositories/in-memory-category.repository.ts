@@ -38,4 +38,15 @@ export class InMemoryCategoryRepository extends CategoryRepository {
     return this.categories.filter((d) => d.companyId.toValue() === companyId)
       .length;
   }
+
+  async updateManyOrders(
+    categories: { id: string; order: number }[],
+  ): Promise<void> {
+    categories.forEach((newCategory) => {
+      const categoryFinded = this.categories.find(
+        (cat) => cat.id.toValue() === newCategory.id,
+      );
+      categoryFinded.order = newCategory.order;
+    });
+  }
 }
