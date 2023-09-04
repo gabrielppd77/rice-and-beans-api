@@ -73,21 +73,32 @@ describe('CategoryController', () => {
     expect(response.status).toBe(HttpStatus.OK);
   });
 
+  it('should update the order of severals categories', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/category/update-many-orders')
+      .send({
+        categories: [
+          {
+            id: category.id,
+            order: 2,
+          },
+        ],
+      })
+      .set('Authorization', `Bearer ${access_token}`);
+
+    const responseGet = await request(app.getHttpServer())
+      .get('/category/' + category.id)
+      .set('Authorization', `Bearer ${access_token}`);
+    const categoryCurrent = responseGet.body;
+
+    expect(response.status).toBe(HttpStatus.OK);
+    expect(categoryCurrent.order).toEqual(2);
+  });
+
   it('should delete a category', async () => {
     const response = await request(app.getHttpServer())
       .delete('/category/' + category.id)
       .set('Authorization', `Bearer ${access_token}`);
-    expect(response.status).toBe(HttpStatus.OK);
-  });
-
-  it('should update the order of severals categories', async () => {
-    const response = await request(app.getHttpServer())
-      .patch('/category/update-many-orders')
-      .set('Authorization', `Bearer ${access_token}`)
-      .send({
-        id: category.id,
-        name: 'category-name-new',
-      });
     expect(response.status).toBe(HttpStatus.OK);
   });
 });
