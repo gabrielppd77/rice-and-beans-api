@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Put,
+  Patch,
   Param,
   Post,
   Request,
@@ -15,11 +16,13 @@ import { ProductById } from '@domain/use-cases/product/product-by-id';
 import { ProductDelete } from '@domain/use-cases/product/product-delete';
 import { ProductList } from '@domain/use-cases/product/product-list';
 import { ProductUpdate } from '@domain/use-cases/product/product-update';
+import { ProductUpdateManyOrders } from '@domain/use-cases/product/product-update-many-orders';
 
 import { ProductCreateDTO } from './dtos/product-create.dto';
 import { ProductUpdateDTO } from './dtos/product-update.dto';
 import { ProductGetByIdDTO } from './dtos/product-get-by-id.dto';
 import { ProductListAllDTO } from './dtos/product-list-all.dto';
+import { ProductUpdateManyOrdersDTO } from './dtos/product-update-many-orders.dto';
 
 @ApiTags('product')
 @Controller('product')
@@ -30,6 +33,7 @@ export class ProductController {
     private productDelete: ProductDelete,
     private productList: ProductList,
     private productUpdate: ProductUpdate,
+    private productUpdateManyOrders: ProductUpdateManyOrders,
   ) {}
 
   @Post()
@@ -83,5 +87,13 @@ export class ProductController {
       },
       productId,
     );
+  }
+
+  @Patch('update-many-orders')
+  async updateManyOrders(
+    @Body() body: ProductUpdateManyOrdersDTO,
+  ): Promise<void> {
+    const { products } = body;
+    await this.productUpdateManyOrders.execute({ products });
   }
 }

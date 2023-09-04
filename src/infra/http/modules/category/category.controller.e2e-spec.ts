@@ -74,6 +74,7 @@ describe('CategoryController', () => {
   });
 
   it('should update the order of severals categories', async () => {
+    expect(category.order).toEqual(1);
     const response = await request(app.getHttpServer())
       .patch('/category/update-many-orders')
       .send({

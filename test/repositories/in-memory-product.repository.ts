@@ -30,8 +30,19 @@ export class InMemoryProductRepository extends ProductRepository {
     return this.products.filter((d) => d.companyId.toValue() === companyId);
   }
 
-  async countInCompany(companyId: string): Promise<number> {
-    return this.products.filter((d) => d.companyId.toValue() === companyId)
+  async countInCategory(categoryId: string): Promise<number> {
+    return this.products.filter((d) => d.categoryId.toValue() === categoryId)
       .length;
+  }
+
+  async updateManyOrders(
+    products: { id: string; order: number }[],
+  ): Promise<void> {
+    products.forEach((newProduct) => {
+      const productFinded = this.products.find(
+        (cat) => cat.id.toValue() === newProduct.id,
+      );
+      productFinded.order = newProduct.order;
+    });
   }
 }

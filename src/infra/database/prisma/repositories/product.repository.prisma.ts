@@ -54,12 +54,29 @@ export class ProductRepositoryPrisma implements ProductRepository {
     return productsPrisma.map((d) => PrismaProductMapper.toDomain(d));
   }
 
-  async countInCompany(companyId: string): Promise<number> {
+  async countInCategory(categoryId: string): Promise<number> {
     const count = await this.prismaService.product.count({
       where: {
-        companyId: companyId,
+        categoryId,
       },
     });
     return count;
+  }
+
+  async updateManyOrders(
+    products: { id: string; order: number }[],
+  ): Promise<void> {
+    await Promise.all(
+      products.map(({ id, order }) =>
+        this.prismaService.product.update({
+          where: {
+            id,
+          },
+          data: {
+            order,
+          },
+        }),
+      ),
+    );
   }
 }

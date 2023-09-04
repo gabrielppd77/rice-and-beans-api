@@ -21,7 +21,7 @@ export class ProductCreate {
 
   async execute(req: Request): Promise<Response> {
     const { companyId, categoryId, name, price, photoUrl, description } = req;
-    const count = await this.productRepository.countInCompany(companyId);
+    const count = await this.productRepository.countInCategory(categoryId);
     const product = new Product({
       companyId: new UniqueEntityID(companyId),
       categoryId: new UniqueEntityID(categoryId),

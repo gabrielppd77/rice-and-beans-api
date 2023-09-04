@@ -91,6 +91,29 @@ describe('ProductController', () => {
     expect(response.status).toBe(HttpStatus.OK);
   });
 
+  it('should update the order of severals products', async () => {
+    expect(product.order).toEqual(1);
+    const response = await request(app.getHttpServer())
+      .patch('/product/update-many-orders')
+      .send({
+        products: [
+          {
+            id: product.id,
+            order: 2,
+          },
+        ],
+      })
+      .set('Authorization', `Bearer ${access_token}`);
+
+    const responseGet = await request(app.getHttpServer())
+      .get('/product/' + product.id)
+      .set('Authorization', `Bearer ${access_token}`);
+    const productCurrent = responseGet.body;
+
+    expect(response.status).toBe(HttpStatus.OK);
+    expect(productCurrent.order).toEqual(2);
+  });
+
   it('should delete a product', async () => {
     const response = await request(app.getHttpServer())
       .delete('/product/' + product.id)

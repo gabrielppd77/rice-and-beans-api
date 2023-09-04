@@ -59,6 +59,9 @@ export class Product extends Entity<ProductProps> {
   get order() {
     return this.props.order;
   }
+  set order(order: number) {
+    this.props.order = order;
+  }
 
   get category() {
     return this.props.category;
