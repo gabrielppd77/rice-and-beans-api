@@ -11,6 +11,7 @@ import { ProductDelete } from '@domain/use-cases/product/product-delete';
 import { ProductList } from '@domain/use-cases/product/product-list';
 import { ProductUpdate } from '@domain/use-cases/product/product-update';
 import { ProductUpdateManyOrders } from '@domain/use-cases/product/product-update-many-orders';
+import { ProductListByCategory } from '@domain/use-cases/product/product-list-by-category';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
@@ -22,6 +23,7 @@ import { ProductUpdateManyOrders } from '@domain/use-cases/product/product-updat
     ProductList,
     ProductUpdate,
     ProductUpdateManyOrders,
+    ProductListByCategory,
   ],
 })
 export class ProductModule {}

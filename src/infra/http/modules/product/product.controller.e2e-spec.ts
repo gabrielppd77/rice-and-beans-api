@@ -114,6 +114,21 @@ describe('ProductController', () => {
     expect(productCurrent.order).toEqual(2);
   });
 
+  it('should list all products of category', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/product/list-by-category/' + otherCategoryId)
+      .set('Authorization', `Bearer ${access_token}`);
+
+    expect(response.status).toBe(HttpStatus.OK);
+    expect(response.body).toBeTruthy();
+
+    product = response.body[0];
+
+    expect(product.id).toBeTruthy();
+    expect(product.name).toBeTruthy();
+    expect(product.order).toEqual(2);
+  });
+
   it('should delete a product', async () => {
     const response = await request(app.getHttpServer())
       .delete('/product/' + product.id)

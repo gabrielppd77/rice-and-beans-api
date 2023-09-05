@@ -17,12 +17,14 @@ import { ProductDelete } from '@domain/use-cases/product/product-delete';
 import { ProductList } from '@domain/use-cases/product/product-list';
 import { ProductUpdate } from '@domain/use-cases/product/product-update';
 import { ProductUpdateManyOrders } from '@domain/use-cases/product/product-update-many-orders';
+import { ProductListByCategory } from '@domain/use-cases/product/product-list-by-category';
 
 import { ProductCreateDTO } from './dtos/product-create.dto';
 import { ProductUpdateDTO } from './dtos/product-update.dto';
 import { ProductGetByIdDTO } from './dtos/product-get-by-id.dto';
 import { ProductListAllDTO } from './dtos/product-list-all.dto';
 import { ProductUpdateManyOrdersDTO } from './dtos/product-update-many-orders.dto';
+import { ListByCategoryDTO } from './dtos/list-by-category.dto';
 
 @ApiTags('product')
 @Controller('product')
@@ -34,6 +36,7 @@ export class ProductController {
     private productList: ProductList,
     private productUpdate: ProductUpdate,
     private productUpdateManyOrders: ProductUpdateManyOrders,
+    private productListByCategory: ProductListByCategory,
   ) {}
 
   @Post()
@@ -65,10 +68,10 @@ export class ProductController {
   @Get()
   async listAll(@Request() req): Promise<ProductListAllDTO[]> {
     const payload = req.user as Payload;
-    const { products: categoriesDomain } = await this.productList.execute({
+    const { products: productsDomain } = await this.productList.execute({
       companyId: payload.sub.companyId,
     });
-    return categoriesDomain.map((d) => new ProductListAllDTO(d));
+    return productsDomain.map((d) => new ProductListAllDTO(d));
   }
 
   @Put(':id')
@@ -95,5 +98,14 @@ export class ProductController {
   ): Promise<void> {
     const { products } = body;
     await this.productUpdateManyOrders.execute({ products });
+  }
+
+  @Get('list-by-category/:categoryId')
+  async listByCategory(
+    @Param('categoryId') categoryId: string,
+  ): Promise<ListByCategoryDTO[]> {
+    const { products: productsDomain } =
+      await this.productListByCategory.execute({ categoryId });
+    return productsDomain.map((d) => new ListByCategoryDTO(d));
   }
 }

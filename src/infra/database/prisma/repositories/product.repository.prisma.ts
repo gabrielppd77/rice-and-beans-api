@@ -79,4 +79,16 @@ export class ProductRepositoryPrisma implements ProductRepository {
       ),
     );
   }
+
+  async listByCategory(categoryId: string): Promise<Product[]> {
+    const productsPrisma = await this.prismaService.product.findMany({
+      where: {
+        categoryId,
+      },
+      orderBy: {
+        order: 'asc',
+      },
+    });
+    return productsPrisma.map((d) => PrismaProductMapper.toDomain(d));
+  }
 }

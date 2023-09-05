@@ -45,4 +45,8 @@ export class InMemoryProductRepository extends ProductRepository {
       productFinded.order = newProduct.order;
     });
   }
+
+  async listByCategory(categoryId: string): Promise<Product[]> {
+    return this.products.filter((d) => d.categoryId.toValue() === categoryId);
+  }
 }

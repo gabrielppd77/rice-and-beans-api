@@ -8,9 +8,10 @@ export abstract class ProductRepository {
   abstract update(product: Product, productId: string): Promise<void>;
   abstract delete(productId: string): Promise<void>;
   abstract getById(productId: string): Promise<Product | null>;
-  abstract listAll(productId: string): Promise<Product[]>;
+  abstract listAll(companyId: string): Promise<Product[]>;
   abstract countInCategory(categoryId: string): Promise<number>;
   abstract updateManyOrders(
     categories: { id: string; order: number }[],
   ): Promise<void>;
+  abstract listByCategory(categoryId: string): Promise<Product[]>;
 }
