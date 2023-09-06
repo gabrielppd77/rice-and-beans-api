@@ -8,8 +8,15 @@ import {
   Param,
   Post,
   Request,
+  UseInterceptors,
+  UploadedFile,
+  HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+
+import { MulterConfig } from 'src/config/multer-config';
 
 import { ProductCreate } from '@domain/use-cases/product/product-create';
 import { ProductById } from '@domain/use-cases/product/product-by-id';
@@ -107,5 +114,14 @@ export class ProductController {
     const { products: productsDomain } =
       await this.productListByCategory.execute({ categoryId });
     return productsDomain.map((d) => new ListByCategoryDTO(d));
+  }
+
+  @Post('upload-image')
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(FileInterceptor('file', MulterConfig.configImageS3()))
+  uploadArquivo(@UploadedFile() file: Express.MulterS3.File) {
+    console.log(file);
+    // arquivo.url = file.location;
+    // return this.filesService.salvarDados(file);
   }
 }
