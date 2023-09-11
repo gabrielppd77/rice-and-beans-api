@@ -118,7 +118,7 @@ export class ProductController {
 
   @Post('upload-image')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(FileInterceptor('file', MulterConfig.configImageS3()))
+  @UseInterceptors(FileInterceptor('file', MulterConfig.configImageUpload()))
   uploadArquivo(@UploadedFile() file: Express.MulterS3.File) {
     console.log(file);
     // arquivo.url = file.location;
