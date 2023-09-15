@@ -20,7 +20,8 @@ export class PrismaProductMapper {
     return {
       id: product.id.toValue(),
       name: product.name,
-      photoUrl: product.photoUrl,
+      imageUrl: product.imageUrl,
+      imageKey: product.imageKey,
       companyId: product.companyId.toValue(),
       categoryId: product.categoryId.toValue(),
       description: product.description,
@@ -36,7 +37,8 @@ export class PrismaProductMapper {
         categoryId: new UniqueEntityID(product.categoryId),
         name: product.name,
         price: product.price.toNumber(),
-        photoUrl: product.photoUrl,
+        imageUrl: product.imageUrl,
+        imageKey: product.imageKey,
         description: product.description,
         category: product.category
           ? PrismaCategoryMapper.toDomain(product.category)

@@ -13,10 +13,10 @@ import {
   HttpStatus,
   HttpCode,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-import { MulterConfig } from 'src/config/multer-config';
+import { MulterConfig } from '@infra/config/multer-config';
 
 import { ProductCreate } from '@domain/use-cases/product/product-create';
 import { ProductById } from '@domain/use-cases/product/product-by-id';
@@ -25,6 +25,7 @@ import { ProductList } from '@domain/use-cases/product/product-list';
 import { ProductUpdate } from '@domain/use-cases/product/product-update';
 import { ProductUpdateManyOrders } from '@domain/use-cases/product/product-update-many-orders';
 import { ProductListByCategory } from '@domain/use-cases/product/product-list-by-category';
+import { ProductUpdateImage } from '@domain/use-cases/product/product-update-image';
 
 import { ProductCreateDTO } from './dtos/product-create.dto';
 import { ProductUpdateDTO } from './dtos/product-update.dto';
@@ -32,6 +33,7 @@ import { ProductGetByIdDTO } from './dtos/product-get-by-id.dto';
 import { ProductListAllDTO } from './dtos/product-list-all.dto';
 import { ProductUpdateManyOrdersDTO } from './dtos/product-update-many-orders.dto';
 import { ListByCategoryDTO } from './dtos/list-by-category.dto';
+import { ProductFileUploadDTO } from './dtos/product-file-upload';
 
 @ApiTags('product')
 @Controller('product')
@@ -44,11 +46,12 @@ export class ProductController {
     private productUpdate: ProductUpdate,
     private productUpdateManyOrders: ProductUpdateManyOrders,
     private productListByCategory: ProductListByCategory,
+    private productUpdateImage: ProductUpdateImage,
   ) {}
 
   @Post()
   async create(@Body() body: ProductCreateDTO, @Request() req): Promise<void> {
-    const { categoryId, name, description, price, photoUrl } = body;
+    const { categoryId, name, description, price } = body;
     const payload = req.user as Payload;
 
     await this.productCreate.execute({
@@ -57,7 +60,6 @@ export class ProductController {
       name,
       description,
       price,
-      photoUrl,
     });
   }
 
@@ -86,14 +88,13 @@ export class ProductController {
     @Param('id') productId: string,
     @Body() body: ProductUpdateDTO,
   ): Promise<void> {
-    const { categoryId, name, description, price, photoUrl } = body;
+    const { categoryId, name, description, price } = body;
     await this.productUpdate.execute(
       {
         categoryId,
         name,
         description,
         price,
-        photoUrl,
       },
       productId,
     );
@@ -116,12 +117,24 @@ export class ProductController {
     return productsDomain.map((d) => new ListByCategoryDTO(d));
   }
 
-  @Post('upload-image')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Image of product',
+    type: ProductFileUploadDTO,
+  })
+  @Patch('upload-image/:productId')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(FileInterceptor('file', MulterConfig.configImageUpload()))
-  uploadArquivo(@UploadedFile() file: Express.MulterS3.File) {
-    console.log(file);
-    // arquivo.url = file.location;
-    // return this.filesService.salvarDados(file);
+  @UseInterceptors(
+    FileInterceptor('file', MulterConfig.configImageUpload('product')),
+  )
+  async uploadArquivo(
+    @Param('productId') productId: string,
+    @UploadedFile() file: Express.MulterS3.File,
+  ) {
+    await this.productUpdateImage.execute({
+      productId,
+      imageUrl: file.location,
+      imageKey: file.key,
+    });
   }
 }

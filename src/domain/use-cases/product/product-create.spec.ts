@@ -11,7 +11,6 @@ describe('ProductCreate', () => {
       categoryId: '123456789',
       description: 'description product',
       name: 'Pizza Calabresa',
-      photoUrl: 'http://www.cafes.com',
       price: 60.5,
     };
 
@@ -29,7 +28,6 @@ describe('ProductCreate', () => {
     );
     expect(productCreated.description).toEqual(productToCreate.description);
     expect(productCreated.name).toEqual(productToCreate.name);
-    expect(productCreated.photoUrl).toEqual(productToCreate.photoUrl);
     expect(productCreated.price).toEqual(productToCreate.price);
     expect(productCreated.order).toEqual(1);
   });

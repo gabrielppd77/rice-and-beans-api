@@ -16,9 +16,6 @@ export class ProductUpdateDTO {
   })
   price: number;
   @IsOptional()
-  @MaxLength(1000)
-  photoUrl?: string;
-  @IsOptional()
   @MaxLength(255)
   description?: string;
 }

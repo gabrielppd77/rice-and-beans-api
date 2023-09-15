@@ -15,7 +15,6 @@ describe('ProductUpdate', () => {
       categoryId: new UniqueEntityID(),
       name: 'product1',
       price: 25.23,
-      photoUrl: 'photoUrl',
       description: 'description',
       order: 1,
     });
@@ -25,7 +24,6 @@ describe('ProductUpdate', () => {
       categoryId: 'id-new-category',
       name: 'product2',
       price: 30,
-      photoUrl: 'https://www.xd.com/',
       description: 'new-description',
     };
 
@@ -40,7 +38,6 @@ describe('ProductUpdate', () => {
     );
     expect(productCurrent.name).toEqual(productNewFields.name);
     expect(productCurrent.price).toEqual(productNewFields.price);
-    expect(productCurrent.photoUrl).toEqual(productNewFields.photoUrl);
     expect(productCurrent.description).toEqual(productNewFields.description);
   });
 });

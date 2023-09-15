@@ -91,4 +91,16 @@ export class ProductRepositoryPrisma implements ProductRepository {
     });
     return productsPrisma.map((d) => PrismaProductMapper.toDomain(d));
   }
+
+  async updateImage(productId: string, imageUrl: string, imageKey: string) {
+    await this.prismaService.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        imageUrl,
+        imageKey,
+      },
+    });
+  }
 }

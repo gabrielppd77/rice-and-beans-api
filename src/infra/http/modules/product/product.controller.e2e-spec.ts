@@ -32,7 +32,6 @@ describe('ProductController', () => {
         categoryId,
         name: 'product1',
         price: 99.99,
-        photoUrl: 'photo-url',
         description: 'description',
       })
       .set('Authorization', `Bearer ${access_token}`);
@@ -71,7 +70,6 @@ describe('ProductController', () => {
     expect(productCurrent.categoryId).toEqual(categoryId);
     expect(productCurrent.name).toBeTruthy();
     expect(productCurrent.price).toBeTruthy();
-    expect(productCurrent.photoUrl).toBeTruthy();
     expect(productCurrent.description).toBeTruthy();
     expect(productCurrent.order).toEqual(1);
   });
@@ -84,7 +82,6 @@ describe('ProductController', () => {
         categoryId: otherCategoryId,
         name: 'product2',
         price: 40,
-        photoUrl: 'photo-url-new',
         description: 'description-new',
       })
       .set('Authorization', `Bearer ${access_token}`);
@@ -127,6 +124,10 @@ describe('ProductController', () => {
     expect(product.id).toBeTruthy();
     expect(product.name).toBeTruthy();
     expect(product.order).toEqual(2);
+  });
+
+  it('should upload image of product correctly', () => {
+    //Less create a test to upload image
   });
 
   it('should delete a product', async () => {

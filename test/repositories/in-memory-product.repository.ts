@@ -11,8 +11,9 @@ export class InMemoryProductRepository extends ProductRepository {
   async update(product: Product, productId: string): Promise<void> {
     this.products = this.products.map((d) => {
       if (d.id.toValue() === productId) {
-        return product;
+        d = product;
       }
+      return d;
     });
   }
 
@@ -48,5 +49,19 @@ export class InMemoryProductRepository extends ProductRepository {
 
   async listByCategory(categoryId: string): Promise<Product[]> {
     return this.products.filter((d) => d.categoryId.toValue() === categoryId);
+  }
+
+  async updateImage(
+    productId: string,
+    imageUrl: string,
+    imageKey: string,
+  ): Promise<void> {
+    this.products = this.products.map((d) => {
+      if (d.id.toValue() === productId) {
+        d.imageUrl = imageUrl;
+        d.imageKey = imageKey;
+      }
+      return d;
+    });
   }
 }

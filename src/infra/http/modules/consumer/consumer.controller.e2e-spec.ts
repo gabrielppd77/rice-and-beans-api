@@ -47,7 +47,6 @@ describe('AppController', () => {
     expect(product.categoryId).toEqual(category.id);
     expect(product.name).toBeTruthy();
     expect(product.price).toBeTruthy();
-    expect(product.photoUrl).toBeTruthy();
     expect(product.description).toBeTruthy();
   });
 });

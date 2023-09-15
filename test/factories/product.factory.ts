@@ -13,7 +13,6 @@ export class ProductFactory {
         categoryId,
         name: 'Product Name',
         price: 99.99,
-        photoUrl: 'photo-url',
         description: 'description',
       })
       .set('Authorization', `Bearer ${access_token}`);

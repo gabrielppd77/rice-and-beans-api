@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import { ValidationPipeConfig } from '../../src/config/validation-pipe.config';
+import { ValidationPipeConfig } from '../../src/infra/config/validation-pipe.config';
 
 import { AppModule } from '@infra/app.module';
 

@@ -15,7 +15,6 @@ describe('ProductList', () => {
       categoryId: new UniqueEntityID(),
       name: 'product1',
       price: 25.23,
-      photoUrl: 'photoUrl1',
       description: 'description1',
       order: 1,
     });
@@ -24,7 +23,6 @@ describe('ProductList', () => {
       categoryId: new UniqueEntityID(),
       name: 'product2',
       price: 30,
-      photoUrl: 'photoUrl2',
       description: 'description2',
       order: 1,
     });

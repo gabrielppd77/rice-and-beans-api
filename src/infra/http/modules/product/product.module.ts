@@ -12,6 +12,9 @@ import { ProductList } from '@domain/use-cases/product/product-list';
 import { ProductUpdate } from '@domain/use-cases/product/product-update';
 import { ProductUpdateManyOrders } from '@domain/use-cases/product/product-update-many-orders';
 import { ProductListByCategory } from '@domain/use-cases/product/product-list-by-category';
+import { ProductUpdateImage } from '@domain/use-cases/product/product-update-image';
+
+import { FileService } from '@core/use-cases/file-service';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
@@ -24,6 +27,8 @@ import { ProductListByCategory } from '@domain/use-cases/product/product-list-by
     ProductUpdate,
     ProductUpdateManyOrders,
     ProductListByCategory,
+    ProductUpdateImage,
+    FileService,
   ],
 })
 export class ProductModule {}

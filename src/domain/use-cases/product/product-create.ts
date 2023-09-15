@@ -9,7 +9,6 @@ interface Request {
   categoryId: string;
   name: string;
   price: number;
-  photoUrl?: string;
   description?: string;
 }
 
@@ -20,14 +19,13 @@ export class ProductCreate {
   constructor(private productRepository: ProductRepository) {}
 
   async execute(req: Request): Promise<Response> {
-    const { companyId, categoryId, name, price, photoUrl, description } = req;
+    const { companyId, categoryId, name, price, description } = req;
     const count = await this.productRepository.countInCategory(categoryId);
     const product = new Product({
       companyId: new UniqueEntityID(companyId),
       categoryId: new UniqueEntityID(categoryId),
       name,
       price,
-      photoUrl,
       description,
       order: count + 1,
     });

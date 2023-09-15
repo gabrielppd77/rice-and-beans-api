@@ -7,14 +7,14 @@ class ConsumerCompanyProductDTO {
   categoryId: string;
   name: string;
   price: number;
-  photoUrl?: string;
+  imageUrl?: string;
   description?: string;
   constructor(product: Product) {
     this.id = product.id.toValue();
     this.categoryId = product.categoryId.toValue();
     this.name = product.name;
     this.price = product.price;
-    this.photoUrl = product.photoUrl;
+    this.imageUrl = product.imageUrl;
     this.description = product.description;
   }
 }

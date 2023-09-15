@@ -58,7 +58,8 @@ model Product {
 
   name        String  @db.VarChar(55)
   price       Decimal
-  photoUrl    String? @db.VarChar(1000)
+  imageUrl    String? @db.VarChar(555)
+  imageKey    String? @db.VarChar(555)
   description String? @db.VarChar(255)
   order       Int
 

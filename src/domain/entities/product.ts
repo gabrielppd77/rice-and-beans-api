@@ -8,7 +8,8 @@ export interface ProductProps {
   categoryId: UniqueEntityID;
   name: string;
   price: number;
-  photoUrl?: string;
+  imageUrl?: string;
+  imageKey?: string;
   description?: string;
   order: number;
 
@@ -42,11 +43,18 @@ export class Product extends Entity<ProductProps> {
     this.props.price = price;
   }
 
-  get photoUrl() {
-    return this.props.photoUrl;
+  get imageUrl() {
+    return this.props.imageUrl;
   }
-  set photoUrl(photoUrl: string) {
-    this.props.photoUrl = photoUrl;
+  set imageUrl(imageUrl: string) {
+    this.props.imageUrl = imageUrl;
+  }
+
+  get imageKey() {
+    return this.props.imageKey;
+  }
+  set imageKey(imageKey: string) {
+    this.props.imageKey = imageKey;
   }
 
   get description() {

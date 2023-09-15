@@ -14,4 +14,9 @@ export abstract class ProductRepository {
     categories: { id: string; order: number }[],
   ): Promise<void>;
   abstract listByCategory(categoryId: string): Promise<Product[]>;
+  abstract updateImage(
+    productId: string,
+    imageUrl: string,
+    imageKey: string,
+  ): Promise<void>;
 }

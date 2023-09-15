@@ -9,7 +9,6 @@ interface Request {
   categoryId: string;
   name: string;
   price: number;
-  photoUrl?: string;
   description?: string;
 }
 
@@ -23,12 +22,11 @@ export class ProductUpdate {
   ) {}
 
   async execute(req: Request, productId: string): Promise<Response> {
-    const { categoryId, name, price, photoUrl, description } = req;
+    const { categoryId, name, price, description } = req;
     const { product } = await this.productById.execute({ productId });
     product.categoryId = new UniqueEntityID(categoryId);
     product.name = name;
     product.price = price;
-    product.photoUrl = photoUrl;
     product.description = description;
     await this.productRepository.update(product, productId);
   }

@@ -14,6 +14,8 @@ function generateFileName(originalname: string) {
   return `${fileName}${extension}`;
 }
 
+const basePublicPath = 'public/tmp/uploads/images';
+
 const s3Config = new S3Client({
   region: process.env.S3_REGION,
   credentials: {
@@ -22,34 +24,41 @@ const s3Config = new S3Client({
   },
 });
 
-const storageTypes = {
-  dev: diskStorage({
-    destination: './tmp/uploads',
-    filename: (req, file, cb) => {
-      const fileName = generateFileName(file.originalname);
-      cb(null, fileName);
-    },
-  }),
-  prod: multerS3({
-    s3: s3Config,
-    bucket: process.env.S3_NAME_BUCKET,
-    contentType: multerS3.AUTO_CONTENT_TYPE,
-    acl: 'public-read',
-    key: (req, file, cb) => {
-      const fileName = generateFileName(file.originalname);
-      cb(null, 'product/' + fileName);
-    },
-  }),
-};
+interface MulterFile extends Express.Multer.File {
+  location: string;
+  key: string;
+}
 
-// tenho que conseguir excluir a foto da aws, ao excluir um product
-// preciso etiqueta o nome da foto talvez (verificar se vai precisar msmo, pois já esta separado por pasta na aws)
-// melhorar a passagem de parametro de entidade
+type PathsImage = 'product';
+
+function configStorage(path: PathsImage) {
+  return {
+    local: diskStorage({
+      destination: './' + basePublicPath + '/' + path,
+      filename: (req, file: MulterFile, cb) => {
+        const fileName = generateFileName(file.originalname);
+        file.location = `${process.env.APP_URL}/${basePublicPath}/${path}/${fileName}`;
+        file.key = `${basePublicPath}/${path}/${fileName}`;
+        cb(null, fileName);
+      },
+    }),
+    s3: multerS3({
+      s3: s3Config,
+      bucket: process.env.S3_NAME_BUCKET,
+      contentType: multerS3.AUTO_CONTENT_TYPE,
+      acl: 'public-read',
+      key: (req, file, cb) => {
+        const fileName = generateFileName(file.originalname);
+        cb(null, 'images/' + path + '/' + fileName);
+      },
+    }),
+  };
+}
+
 export class MulterConfig {
-  static configImageUpload(): MulterOptions {
+  static configImageUpload(path: PathsImage): MulterOptions {
     return {
-      // storage: storageTypes[process.env.NODE_ENV],
-      storage: storageTypes['prod'],
+      storage: configStorage(path)[process.env.STORAGE_TYPE],
       limits: {
         fileSize: 2 * 1024 * 1024, //2mb,
       },
