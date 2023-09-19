@@ -4,6 +4,7 @@ import * as AWS from 'aws-sdk';
 
 import * as fs from 'fs';
 import { resolve } from 'path';
+import { path } from 'app-root-path';
 
 process.env.AWS_SDK_JS_SUPPRESS_MAINTENANCE_MODE_MESSAGE = '1';
 
@@ -27,7 +28,7 @@ export class FileService {
       };
       await this.s3.deleteObject(params).promise();
     } else {
-      await fs.unlinkSync(resolve(__dirname, '..', '..', '..', '..', key));
+      await fs.unlinkSync(resolve(path, key));
     }
   }
 }

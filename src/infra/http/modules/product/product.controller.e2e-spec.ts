@@ -1,5 +1,20 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+const filePath = join(
+  __dirname,
+  '..',
+  '..',
+  '..',
+  '..',
+  '..',
+  'test',
+  'files',
+  'image.png',
+);
+const fileBuffer = readFileSync(filePath);
 
 import { AppFactory } from '@test/factories/app.factory';
 import { LoginFactory } from '@test/factories/login.factory';
@@ -126,8 +141,19 @@ describe('ProductController', () => {
     expect(product.order).toEqual(2);
   });
 
-  it('should upload image of product correctly', () => {
-    //Less create a test to upload image
+  it('should upload image of product correctly', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/product/upload-image/' + product.id)
+      .attach('file', fileBuffer, 'image.png')
+      .set('Authorization', `Bearer ${access_token}`);
+
+    const responseGet = await request(app.getHttpServer())
+      .get('/product/' + product.id)
+      .set('Authorization', `Bearer ${access_token}`);
+    const productCurrent = responseGet.body;
+
+    expect(response.status).toBe(HttpStatus.OK);
+    expect(productCurrent.imageUrl).toBeTruthy();
   });
 
   it('should delete a product', async () => {
